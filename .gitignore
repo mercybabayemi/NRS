@@ -1,0 +1,7 @@
+# Conda
+.env
+__pycache__/
+*.pyc
+
+# Generated data
+nrs_streamlit_app/generate_data/output/
