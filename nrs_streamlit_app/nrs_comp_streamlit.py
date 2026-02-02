@@ -87,7 +87,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # --- 2. STATE MANAGEMENT ---
-for key, val in {"nav": "Dashboard", "selected_state": None, "time_filter": "all"}.items():
+for key, val in {"nav": "Dashboard", "selected_state": None, "time_filter": "all", "selected_company":""}.items():
     if key not in st.session_state:
         st.session_state[key] = val
 

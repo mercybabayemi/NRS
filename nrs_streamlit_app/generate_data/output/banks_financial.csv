@@ -1,18 +1,18 @@
 institution_id,name,license_type,compliance_score
-9cb3c2c8-92a6-4375-b471-2ead885123f8,Zenith Bank,Loan Company,70
-4b76759d-0291-4fb6-989c-2546cd728916,GTBank,Microfinance Institution,91
-228737b1-4913-42d8-8665-c70d390926dd,Access Bank,Microfinance Institution,84
-e3579dab-1a91-4f9a-9f7e-e274ee64d0c4,First Bank,Loan Company,75
-1d8b8348-c810-499c-8b3a-0466f497437a,Union Bank,Loan Company,86
-1a1b4103-9984-461b-b8e8-3b97b4bb6581,OPay,Loan Company,89
-854e6d71-90db-468a-8c09-9890ca803388,Palmpay,Microfinance Institution,78
-f74c6ae4-3312-4586-982a-43053c9ce9ed,Kuda,Retail Bank,85
-f7f3f842-4329-48e1-873a-14cc364efe62,Sterling Bank,Microfinance Institution,95
-1d752d04-6ac8-4266-8183-44f190241660,Moniepoint,Retail Bank,98
-883acca9-ac10-42a1-9a94-68a9ed65dd9e,Flutterwave,Digital Bank,84
-0e0b62a3-20b0-4a80-b2d1-314a2ce59821,Paystack,Retail Bank,90
-b733e79b-188c-436c-aa5d-a897620bbd2c,Flutterwave,Microfinance Institution,87
-df676aa1-9a1f-44c8-9700-2bebdee53ea2,Paystack,Retail Bank,79
-b575c18e-2829-4ed8-92f3-26e7d5ff49b0,Moniepoint,Retail Bank,94
-bfda3d96-0fc9-4d63-95a5-4ea8d3718a3a,Kuda,Microfinance Institution,73
-20f1f408-5281-4daa-b7f7-f7a7a174b4e4,Palmpay,Retail Bank,93
+e01065f1-0870-4007-be0e-6bf4290f83fa,Zenith Bank,Digital Bank,77
+17e2cfd2-5f31-4c2f-a761-a2c7c0801239,GTBank,Microfinance Institution,83
+d6b71f43-14ae-4f2c-85b8-dbb2a071b384,Access Bank,Microfinance Institution,74
+9c62a1e2-6c48-4dc8-8d01-a7bf1962a183,First Bank,Loan Company,98
+63ab5a9a-cf27-4f59-b431-b7b6c7fcbeea,Union Bank,Microfinance Institution,95
+c30f9587-cd9c-4bb1-90ca-c8edf9d402e5,OPay,Loan Company,75
+00f875a6-4296-4b67-9b47-591155c0542f,Palmpay,Retail Bank,98
+0bda40a7-a836-4972-9b6b-05653cc40df3,Kuda,Digital Bank,75
+df5911e9-07b7-4805-b805-1094c3306808,Sterling Bank,Microfinance Institution,73
+2e359f06-dbb8-4f7a-9936-86f403d5dd2a,Moniepoint,Loan Company,90
+f99eab3f-4c28-4e98-9a38-34c63cfdf19e,Flutterwave,Retail Bank,83
+ab0ca7f9-3f52-4655-9e6b-11cd5e189552,Paystack,Microfinance Institution,74
+6ae7d74a-840d-47d1-9641-bcb62942b076,Flutterwave,Digital Bank,82
+1ba43766-5cd3-40d9-bc72-4b2e702bc803,Paystack,Loan Company,77
+d5eae49e-a77f-47c6-bb17-675ab31e9e49,Moniepoint,Digital Bank,73
+6fcb440a-1815-4a1c-9d55-1edae58f40ba,Kuda,Microfinance Institution,97
+7341c52e-4b28-468b-8524-2c916c2efe7b,Palmpay,Digital Bank,93
