@@ -1,0 +1,119 @@
+What we are trying to build:
+We are building a data intelligence platform, not a notebook app
+so we should extract our analytics logic into a Python service, 
+expose it via FastAPI as JSON endpoints, 
+and let the frontend render the dashboard exactly as designed in Figma.
+
+We simply use our analysis drawn from data and design a  data analytics 
+backend that computes tax intelligence metrics and exposes
+them as APIs that a frontend dashboard can consume in real time.
+
+We already have a custom frontend design (Figma)
+We want a clean API contract
+We want separation of concerns:
+data
+business logic
+presentation
+
+
+We may later:
+add authentication
+scale on the platform
+integrate with other systems (NRS, FIRS, state systems)
+
+
+High-level architecture
+CSV / Database
+      ↓
+Data Processing Layer (Python)
+      ↓
+Analytics / Metrics Layer
+      ↓
+API Layer (FastAPI)
+      ↓
+Frontend Dashboard (React/Next/etc.)
+
+Frontend (React / Next / Vue, etc.) calls an API
+
+API returns JSON, not charts
+
+
+Action Point after:
+Frontend renders charts, tables, cards based on that 
+Simply turning my notebook logic into reusable data services
+
+
+What the frontend actually needs:
+
+Looking at our Figma dashboard, the frontend needs structured answers,
+ not charts.
+
+Example:
+
+KPI cards
+{
+  "declared_income": 122000000000,
+  "estimated_income": 470000000000,
+  "income_gap": 348000000000,
+  "potential_tax": 592000000000,
+  "year_over_year": {
+    "declared": 0.20,
+    "estimated": 0.40,
+    "gap": -0.10,
+    "potential": 0.20
+  }
+}
+
+Industry table
+[
+  {
+    "name": "MTN",
+    "tin": "****4546-0003",
+    "period": "Q2 2024",
+    "declared_income": 30021.23,
+    "estimated_income": 30021.23,
+    "potential_tax": 30021.23,
+    "compliance": 0.6,
+    "type": "Limited"
+  }
+]
+
+
+Notice:
+
+No matplotlib
+
+No seaborn
+
+No Plotly
+
+Just numbers
+
+
+
+What I am doing:
+
+Build the API (FastAPI is ideal)
+
+FastAPI fits this project perfectly because:
+
+Python (same ecosystem as your analysis)
+
+Fast
+
+Automatic docs (/docs)
+
+Easy JSON serialization
+
+Scales later
+
+STEP ONE
+Map each Figma component → API endpoint
+STEP TWO
+Refactor one real cell from NRS Data Analysis.ipynb into production code
+STEP THREE
+Design the exact API contract (OpenAPI-style) or collaborate with backend 
+engineer for faster result
+STEP FOUR
+Decide where Postgres fits in (CSV → DB → API)
+
