@@ -20,12 +20,12 @@ def load_data():
     taxes = pd.read_csv("generate_data/output/taxes.csv")
     aml_flags_individual = pd.read_csv("generate_data/output/aml_flags.csv")
     aml_flags_companies = pd.read_csv("generate_data/output/aml_flags_companies.csv")
-    spend_events = pd.read_csv("generate_data/output/spend_events.csv")
-    transactions = pd.read_csv("generate_data/output/transactions.csv")
+    spend_events = pd.read_parquet("generate_data/parquet/spend_events.parquet")
+    transactions = pd.read_parquet("generate_data/parquet/transactions.parquet")
     banks = pd.read_csv("generate_data/output/banks_financial.csv")
     assets = pd.read_csv("generate_data/output/assets.csv")
     spend_aggregrates = pd.read_csv("generate_data/output/spend_aggregates.csv")
-    relationships = pd.read_csv("generate_data/output/relationships.csv")
+    relationships = pd.read_parquet("generate_data/parquet/relationships.parquet")
 
     # Ensure date columns are datetime objects
     for df in [taxes, transactions, spend_events, spend_aggregrates, relationships,
