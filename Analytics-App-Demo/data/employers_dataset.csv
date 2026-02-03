@@ -1,0 +1,201 @@
+employer_id,employer_name,industry,hq_state
+EMP_000001,Delta Manufacturing Holdings,Fintech,Oyo
+EMP_000002,Bright Future NGO Holdings,Education,Kogi
+EMP_000003,Metro Transport Services,Real Estate,FCT
+EMP_000004,Metro Transport Enterprises,Healthcare,Zamfara
+EMP_000005,Abuja Property Group Ltd,Fintech,Kebbi
+EMP_000006,RiverStone Construction PLC,Retail,Kebbi
+EMP_000007,Harmony Telecoms Group,Real Estate,Kogi
+EMP_000008,Bright Future NGO Group,Public Sector,Delta
+EMP_000009,Prime Consulting PLC,Agriculture,Taraba
+EMP_000010,Kano AgroCo Enterprises,Healthcare,Katsina
+EMP_000011,Greenfield Schools Group,Fintech,Zamfara
+EMP_000012,Zuma Logistics Ltd,Telecoms,Bayelsa
+EMP_000013,Greenfield Schools Services,Telecoms,Abia
+EMP_000014,Delta Manufacturing Group,Fintech,Enugu
+EMP_000015,Sunrise Healthcare Holdings,Fintech,Yobe
+EMP_000016,Lagos Retail Hub Enterprises,Telecoms,Niger
+EMP_000017,Delta Manufacturing Ltd,Real Estate,Kwara
+EMP_000018,Lagos Retail Hub Group,Retail,Taraba
+EMP_000019,Delta Manufacturing Enterprises,Real Estate,Abia
+EMP_000020,Cedar Microfinance PLC,NGO,Nasarawa
+EMP_000021,Delta Manufacturing Ltd,Education,Imo
+EMP_000022,Atlas Security Group,Media,Anambra
+EMP_000023,Adebayo Ventures PLC,Public Sector,Adamawa
+EMP_000024,Harmony Telecoms Services,Public Sector,Akwa Ibom
+EMP_000025,Sunrise Healthcare Services,Media,Akwa Ibom
+EMP_000026,Delta Manufacturing Enterprises,Real Estate,Plateau
+EMP_000027,RiverStone Construction Enterprises,Fintech,Gombe
+EMP_000028,Cedar Microfinance Enterprises,Telecoms,Ogun
+EMP_000029,Bright Future NGO Holdings,Public Sector,Bayelsa
+EMP_000030,Abuja Property Group Holdings,Telecoms,Ogun
+EMP_000031,Abuja Property Group Group,Fintech,Jigawa
+EMP_000032,Coastal Foods PLC,Construction,Ondo
+EMP_000033,Cedar Microfinance Ltd,Logistics,Sokoto
+EMP_000034,RiverStone Construction Holdings,Education,Katsina
+EMP_000035,Sunrise Healthcare Enterprises,Fintech,Ogun
+EMP_000036,Coastal Foods Holdings,Telecoms,Kwara
+EMP_000037,Adebayo Ventures Services,Agriculture,Katsina
+EMP_000038,Greenfield Schools Services,Healthcare,Rivers
+EMP_000039,Prime Consulting Holdings,Retail,Lagos
+EMP_000040,Delta Manufacturing PLC,Telecoms,Abia
+EMP_000041,RiverStone Construction Group,Retail,Oyo
+EMP_000042,Abuja Property Group Ltd,Media,Ekiti
+EMP_000043,Federal Service Dept Ltd,Media,Gombe
+EMP_000044,RiverStone Construction Group,Logistics,Niger
+EMP_000045,Metro Transport Holdings,Fintech,Rivers
+EMP_000046,Cedar Microfinance Ltd,Agriculture,Benue
+EMP_000047,Prime Consulting Holdings,Fintech,Kwara
+EMP_000048,Oyo Media House Enterprises,Telecoms,Ekiti
+EMP_000049,Harmony Telecoms Ltd,Real Estate,Borno
+EMP_000050,Abuja Property Group Enterprises,Agriculture,Jigawa
+EMP_000051,Prime Consulting Enterprises,Fintech,Oyo
+EMP_000052,Prime Consulting Services,Public Sector,Sokoto
+EMP_000053,Harmony Telecoms PLC,Logistics,Delta
+EMP_000054,Sunrise Healthcare Ltd,Agriculture,Edo
+EMP_000055,Bright Future NGO Holdings,Retail,Cross River
+EMP_000056,Metro Transport Services,Logistics,Kaduna
+EMP_000057,Oyo Media House Holdings,Media,Anambra
+EMP_000058,RiverStone Construction Holdings,Retail,Kebbi
+EMP_000059,Adebayo Ventures Group,Logistics,Zamfara
+EMP_000060,Coastal Foods Holdings,NGO,Ogun
+EMP_000061,Prime Consulting Services,Media,Anambra
+EMP_000062,Coastal Foods Enterprises,Education,Borno
+EMP_000063,RiverStone Construction Enterprises,Logistics,Zamfara
+EMP_000064,RiverStone Construction PLC,Real Estate,Enugu
+EMP_000065,Unity Markets Ltd,Education,Katsina
+EMP_000066,Lagos Retail Hub Enterprises,Telecoms,Osun
+EMP_000067,Delta Manufacturing Enterprises,Telecoms,Kano
+EMP_000068,Sunrise Healthcare Ltd,Construction,Bayelsa
+EMP_000069,Federal Service Dept PLC,Logistics,Akwa Ibom
+EMP_000070,Adebayo Ventures Ltd,Logistics,Taraba
+EMP_000071,Zuma Logistics Ltd,Education,Bayelsa
+EMP_000072,Metro Transport Group,Logistics,Edo
+EMP_000073,Metro Transport Services,NGO,Yobe
+EMP_000074,Bright Future NGO PLC,Logistics,Kebbi
+EMP_000075,Zuma Logistics PLC,Manufacturing,Lagos
+EMP_000076,Zuma Logistics PLC,Manufacturing,Delta
+EMP_000077,Abuja Property Group Holdings,Agriculture,Kebbi
+EMP_000078,Bright Future NGO Ltd,NGO,Ondo
+EMP_000079,Coastal Foods Services,Retail,Kebbi
+EMP_000080,Cedar Microfinance Enterprises,Fintech,Kogi
+EMP_000081,Federal Service Dept Ltd,NGO,FCT
+EMP_000082,Oyo Media House Enterprises,Manufacturing,Jigawa
+EMP_000083,Zuma Logistics Enterprises,Construction,Jigawa
+EMP_000084,Federal Service Dept Holdings,Agriculture,Kogi
+EMP_000085,Oyo Media House Group,Retail,Abia
+EMP_000086,Lagos Retail Hub Services,Fintech,Katsina
+EMP_000087,Unity Markets Group,Logistics,Taraba
+EMP_000088,Atlas Security Enterprises,Fintech,Adamawa
+EMP_000089,Zuma Logistics Ltd,Retail,Ebonyi
+EMP_000090,Adebayo Ventures Group,Fintech,Taraba
+EMP_000091,Unity Markets Ltd,Logistics,Anambra
+EMP_000092,Nova Fintech Holdings,Healthcare,Edo
+EMP_000093,RiverStone Construction Services,Manufacturing,Niger
+EMP_000094,Greenfield Schools Enterprises,Public Sector,Yobe
+EMP_000095,Cedar Microfinance Ltd,Telecoms,FCT
+EMP_000096,Adebayo Ventures Ltd,Fintech,Kebbi
+EMP_000097,Bright Future NGO Holdings,Logistics,Bayelsa
+EMP_000098,Greenfield Schools Enterprises,Real Estate,Yobe
+EMP_000099,Bright Future NGO Holdings,Construction,Adamawa
+EMP_000100,Delta Manufacturing Holdings,NGO,Imo
+EMP_000101,Harmony Telecoms Ltd,Public Sector,Abia
+EMP_000102,Atlas Security Enterprises,NGO,Edo
+EMP_000103,Federal Service Dept PLC,Logistics,Ekiti
+EMP_000104,Unity Markets Ltd,Manufacturing,Jigawa
+EMP_000105,Kano AgroCo Services,Healthcare,Gombe
+EMP_000106,Unity Markets Services,NGO,Bayelsa
+EMP_000107,RiverStone Construction PLC,Public Sector,Bauchi
+EMP_000108,Nova Fintech Holdings,Telecoms,Imo
+EMP_000109,Bright Future NGO Group,Retail,Katsina
+EMP_000110,Oyo Media House Group,NGO,Delta
+EMP_000111,Unity Markets Enterprises,Fintech,Edo
+EMP_000112,Bright Future NGO PLC,Retail,Akwa Ibom
+EMP_000113,Coastal Foods Enterprises,Logistics,Nasarawa
+EMP_000114,Coastal Foods PLC,Agriculture,Katsina
+EMP_000115,Unity Markets Enterprises,Real Estate,Bauchi
+EMP_000116,Lagos Retail Hub Holdings,Education,Oyo
+EMP_000117,Harmony Telecoms Enterprises,Education,Bauchi
+EMP_000118,Cedar Microfinance Group,Construction,Osun
+EMP_000119,Zuma Logistics Group,Public Sector,Kogi
+EMP_000120,Oyo Media House Enterprises,Public Sector,Jigawa
+EMP_000121,Metro Transport Services,Retail,Sokoto
+EMP_000122,RiverStone Construction Ltd,Logistics,Enugu
+EMP_000123,Unity Markets Enterprises,Media,Kogi
+EMP_000124,Federal Service Dept Enterprises,NGO,Nasarawa
+EMP_000125,Cedar Microfinance PLC,Retail,Oyo
+EMP_000126,RiverStone Construction Holdings,Manufacturing,FCT
+EMP_000127,Prime Consulting Ltd,Construction,Kano
+EMP_000128,Coastal Foods Holdings,Media,Yobe
+EMP_000129,Delta Manufacturing Holdings,Telecoms,Abia
+EMP_000130,Sunrise Healthcare Services,Logistics,Akwa Ibom
+EMP_000131,Nova Fintech Ltd,Construction,Nasarawa
+EMP_000132,Zuma Logistics PLC,NGO,Ondo
+EMP_000133,Abuja Property Group Ltd,Public Sector,Ekiti
+EMP_000134,Unity Markets Group,Real Estate,Gombe
+EMP_000135,Zuma Logistics Services,Fintech,Edo
+EMP_000136,Nova Fintech Holdings,Fintech,Kebbi
+EMP_000137,Atlas Security PLC,Education,Adamawa
+EMP_000138,Prime Consulting Services,Real Estate,Kaduna
+EMP_000139,Kano AgroCo Services,Agriculture,Akwa Ibom
+EMP_000140,Kano AgroCo PLC,Manufacturing,Jigawa
+EMP_000141,Bright Future NGO PLC,Healthcare,Taraba
+EMP_000142,Atlas Security Services,Education,Abia
+EMP_000143,Federal Service Dept PLC,Media,Sokoto
+EMP_000144,Abuja Property Group Group,Telecoms,Enugu
+EMP_000145,Sunrise Healthcare PLC,Logistics,Benue
+EMP_000146,Bright Future NGO PLC,Public Sector,Zamfara
+EMP_000147,Zuma Logistics PLC,Retail,Borno
+EMP_000148,Metro Transport PLC,Public Sector,Lagos
+EMP_000149,Nova Fintech Enterprises,Retail,Adamawa
+EMP_000150,Metro Transport Holdings,Fintech,Rivers
+EMP_000151,Harmony Telecoms Ltd,Education,Sokoto
+EMP_000152,Greenfield Schools Group,Education,Enugu
+EMP_000153,Lagos Retail Hub Ltd,Healthcare,Kwara
+EMP_000154,Coastal Foods Ltd,Real Estate,Ekiti
+EMP_000155,Sunrise Healthcare Services,Retail,Lagos
+EMP_000156,Sunrise Healthcare Holdings,Education,Ekiti
+EMP_000157,Adebayo Ventures PLC,Retail,Gombe
+EMP_000158,Atlas Security Enterprises,Telecoms,Gombe
+EMP_000159,Sunrise Healthcare PLC,Real Estate,Kaduna
+EMP_000160,Nova Fintech Enterprises,Education,Katsina
+EMP_000161,Bright Future NGO Ltd,NGO,Oyo
+EMP_000162,Harmony Telecoms Group,Agriculture,Bauchi
+EMP_000163,Harmony Telecoms Ltd,NGO,Ondo
+EMP_000164,Bright Future NGO PLC,Retail,Kwara
+EMP_000165,Unity Markets Ltd,Public Sector,Ebonyi
+EMP_000166,Abuja Property Group Holdings,Fintech,Akwa Ibom
+EMP_000167,Harmony Telecoms Ltd,Agriculture,Ondo
+EMP_000168,Nova Fintech Services,Real Estate,Sokoto
+EMP_000169,Abuja Property Group Holdings,Public Sector,Lagos
+EMP_000170,Sunrise Healthcare Enterprises,Real Estate,Abia
+EMP_000171,Greenfield Schools Holdings,Telecoms,Taraba
+EMP_000172,Sunrise Healthcare PLC,Healthcare,Bayelsa
+EMP_000173,Cedar Microfinance PLC,Retail,Osun
+EMP_000174,Greenfield Schools Services,Agriculture,Edo
+EMP_000175,Harmony Telecoms PLC,Agriculture,Katsina
+EMP_000176,Cedar Microfinance Holdings,Retail,Ogun
+EMP_000177,Bright Future NGO Services,Real Estate,Zamfara
+EMP_000178,Sunrise Healthcare PLC,Healthcare,Taraba
+EMP_000179,Coastal Foods Services,Fintech,Anambra
+EMP_000180,Kano AgroCo Holdings,Public Sector,Ebonyi
+EMP_000181,Metro Transport Ltd,Agriculture,Zamfara
+EMP_000182,Nova Fintech Holdings,NGO,Osun
+EMP_000183,Delta Manufacturing PLC,Real Estate,Rivers
+EMP_000184,Unity Markets Enterprises,Public Sector,Cross River
+EMP_000185,RiverStone Construction Enterprises,Logistics,Kaduna
+EMP_000186,Sunrise Healthcare PLC,Retail,Yobe
+EMP_000187,Harmony Telecoms PLC,Logistics,Bayelsa
+EMP_000188,Coastal Foods Services,Fintech,Jigawa
+EMP_000189,Atlas Security Enterprises,Retail,Borno
+EMP_000190,Federal Service Dept Services,NGO,Kebbi
+EMP_000191,Greenfield Schools Enterprises,Public Sector,Cross River
+EMP_000192,Greenfield Schools Holdings,Construction,Ebonyi
+EMP_000193,Kano AgroCo Enterprises,NGO,Kano
+EMP_000194,Lagos Retail Hub Ltd,Public Sector,Lagos
+EMP_000195,Unity Markets PLC,Logistics,Oyo
+EMP_000196,Lagos Retail Hub Services,Manufacturing,Edo
+EMP_000197,Oyo Media House Group,Fintech,Abia
+EMP_000198,Harmony Telecoms Group,Manufacturing,Yobe
+EMP_000199,Prime Consulting Ltd,Media,Anambra
+EMP_000200,Sunrise Healthcare PLC,Telecoms,Kwara
