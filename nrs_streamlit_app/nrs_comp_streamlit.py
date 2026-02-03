@@ -156,6 +156,20 @@ def apply_global_filters(ind, comp, tax):
 
     return ind_f, comp_f, tax_f
 
+# --- 1. ENHANCED DATA MAPPING ---
+GEO_ZONES = {
+    'North Central': ['Benue', 'Kogi', 'Kwara', 'Nasarawa', 'Niger', 'Plateau', 'Abuja (FCT)',
+                      'Federal Capital Territory'],
+    'North East': ['Adamawa', 'Bauchi', 'Borno', 'Gombe', 'Taraba', 'Yobe'],
+    'North West': ['Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Sokoto', 'Zamfara'],
+    'South East': ['Abia', 'Anambra', 'Ebonyi', 'Enugu', 'Imo'],
+    'South South': ['Akwa Ibom', 'Bayelsa', 'Cross River', 'Delta', 'Edo', 'Rivers'],
+    'South West': ['Ekiti', 'Lagos', 'Ogun', 'Ondo', 'Osun', 'Oyo']
+}
+
+# Create a flat map for easy pandas lookup
+ZONE_LOOKUP = {state: zone for zone, states in GEO_ZONES.items() for state in states}
+states = df
 
 # --- 4. DATA PROCESSING ---
 # Filter data first
@@ -293,20 +307,6 @@ if st.session_state.nav == "Dashboard":
     with c4: metric_card("AML Alerts", f"{total_alerts:,}", "High Risk Flags", route="Suspicious activities", danger=True)
 
     # Map Logic
-    # --- 1. ENHANCED DATA MAPPING ---
-    GEO_ZONES = {
-        'North Central': ['Benue', 'Kogi', 'Kwara', 'Nasarawa', 'Niger', 'Plateau', 'Abuja (FCT)',
-                          'Federal Capital Territory'],
-        'North East': ['Adamawa', 'Bauchi', 'Borno', 'Gombe', 'Taraba', 'Yobe'],
-        'North West': ['Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Sokoto', 'Zamfara'],
-        'South East': ['Abia', 'Anambra', 'Ebonyi', 'Enugu', 'Imo'],
-        'South South': ['Akwa Ibom', 'Bayelsa', 'Cross River', 'Delta', 'Edo', 'Rivers'],
-        'South West': ['Ekiti', 'Lagos', 'Ogun', 'Ondo', 'Osun', 'Oyo']
-    }
-
-    # Create a flat map for easy pandas lookup
-    ZONE_LOOKUP = {state: zone for zone, states in GEO_ZONES.items() for state in states}
-
 
     def prepare_analysis_data(ind, tax, comp):
         # Standardize and Join
@@ -409,7 +409,7 @@ elif st.session_state.nav == "Industries":
         with c1:
             st.text_input("Search", placeholder="Search by name or TIN")
         with c2:
-            st.selectbox("State", ["All states", "Lagos", "Abuja"])
+            st.selectbox("State", )
 
         df_indus = pd.DataFrame({
             "Name": ["Piggyvest", "MTN", "Zenith", "Guaranty Bank", "Glovo", "FBN"],

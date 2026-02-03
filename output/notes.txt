@@ -79,41 +79,6 @@ Industry table
 ]
 
 
-Notice:
-
-No matplotlib
-
-No seaborn
-
-No Plotly
-
-Just numbers
 
 
-
-What I am doing:
-
-Build the API (FastAPI is ideal)
-
-FastAPI fits this project perfectly because:
-
-Python (same ecosystem as your analysis)
-
-Fast
-
-Automatic docs (/docs)
-
-Easy JSON serialization
-
-Scales later
-
-STEP ONE
-Map each Figma component → API endpoint
-STEP TWO
-Refactor one real cell from NRS Data Analysis.ipynb into production code
-STEP THREE
-Design the exact API contract (OpenAPI-style) or collaborate with backend 
-engineer for faster result
-STEP FOUR
-Decide where Postgres fits in (CSV → DB → API)
 
