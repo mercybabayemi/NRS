@@ -6,4 +6,4 @@ __pycache__/
 # Generated data
 nrs_streamlit_app/generate_data/output/
 
-.idea/
+.idea/nrs-semi-venv/
