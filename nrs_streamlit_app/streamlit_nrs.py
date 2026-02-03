@@ -23,6 +23,111 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
+#--- 1b. Helpers ---
+DATA_DIR = Path("data")
+
+def require_file(filename: str) -> Path:
+    path = DATA_DIR / filename
+    if not path.exists():
+        st.error(f"Missing file: {path}. Put **{filename}** inside your **data/** folder.")
+        st.stop()
+    return path
+
+def title_case_label(s: str) -> str:
+    return str(s).replace("_", " ").strip().title()
+
+def month_label(dt_series: pd.Series) -> pd.Series:
+    return pd.to_datetime(dt_series, errors="coerce").dt.to_period("M").astype(str)
+
+def naira(x):
+    try:
+        if pd.isna(x):
+            return "₦0"
+        return f"₦{float(x):,.0f}"
+    except Exception:
+        return "₦0"
+
+def fmt_ratio(x):
+    if pd.isna(x):
+        return "N/A"
+    try:
+        return f"{float(x):.2f}"
+    except Exception:
+        return "N/A"
+
+
+# --- 1C. Load Core Assets ---
+@st.cache_data
+def load_people():
+    return pd.read_csv(require_file("nigeria_people_dataset.csv"), dtype={"bvn": str})
+
+@st.cache_data
+def load_demographics():
+    return pd.read_csv(require_file("people_demographics_dataset.csv"), dtype={"bvn": str})
+
+@st.cache_data
+def load_risk_flags():
+    df = pd.read_csv(require_file("risk_flags_dataset.csv"), dtype={"bvn": str})
+    if "risk_score" in df.columns:
+        df["risk_score"] = pd.to_numeric(df["risk_score"], errors="coerce")
+    df["status"] = df.get("status", "Unknown").fillna("Unknown")
+    return df
+
+@st.cache_data
+def load_accounts():
+    return pd.read_csv(require_file("accounts_dataset.csv"), dtype={"bvn": str, "account_id": str})
+
+@st.cache_data
+def load_transactions():
+    upgraded = DATA_DIR / "transactions_dataset_upgraded.csv"
+    normal = DATA_DIR / "transactions_dataset.csv"
+    path = upgraded if upgraded.exists() else normal
+    if not path.exists():
+        st.error("Missing transactions file. Put transactions_dataset.csv (or transactions_dataset_upgraded.csv) in data/.")
+        st.stop()
+
+    df = pd.read_csv(path, dtype={"bvn": str, "account_id": str, "transaction_id": str})
+    df["txn_datetime"] = pd.to_datetime(df.get("txn_datetime"), errors="coerce")
+    df["amount"] = pd.to_numeric(df.get("amount"), errors="coerce").fillna(0.0)
+
+    if "category_v2" in df.columns:
+        df["category_use"] = df["category_v2"].fillna("Other Spending")
+    elif "category" in df.columns:
+        df["category_use"] = df["category"].fillna("Other Spending")
+    else:
+        df["category_use"] = "Other Spending"
+
+    if "direction" not in df.columns:
+        df["direction"] = "outflow"
+
+    return df
+
+@st.cache_data
+def load_monthly():
+    df = pd.read_csv(require_file("spend_metrics_monthly_dataset.csv"), dtype={"bvn": str})
+    for c in ["total_inflows", "total_outflows", "spending_ratio", "net_cashflow"]:
+        if c in df.columns:
+            df[c] = pd.to_numeric(df[c], errors="coerce")
+    return df
+
+@st.cache_data
+def load_employment():
+    return pd.read_csv(require_file("employment_history_dataset.csv"), dtype={"bvn": str, "employer_id": str})
+
+@st.cache_data
+def load_employers():
+    return pd.read_csv(require_file("employers_dataset.csv"), dtype={"employer_id": str})
+
+
+people = load_people()
+demo = load_demographics()
+risk = load_risk_flags()
+accounts = load_accounts()
+txns = load_transactions()
+monthly = load_monthly()
+employment = load_employment()
+employers = load_employers()
+
 # --- 2. DATA LOADING LOGIC ---
 DATA_PATH = "generate_data/output/"
 
@@ -40,6 +145,8 @@ def load_nrs_data(file_name):
 if 'nav' not in st.session_state: st.session_state.nav = "Dashboard"
 if 'selected_company' not in st.session_state: st.session_state.selected_company = None
 if 'analysis_target' not in st.session_state: st.session_state.analysis_target = None
+if "selected_bvn" not in st.session_state: st.session_state.selected_bvn = None
+
 
 
 # --- 4. REUSABLE COMPONENTS ---
@@ -64,7 +171,279 @@ with st.sidebar:
     if st.button("🏢 Industries", use_container_width=True):
         st.session_state.nav = "Industries"
         st.session_state.selected_company = None
-    if st.button("👥 Individuals", use_container_width=True): st.session_state.nav = "Individuals"
+    if st.button("👥 Individuals", use_container_width=True):
+        st.session_state.nav = "Individuals"
+        st.session_state.selected_bvn = None
+    # Optional: quick jump if already selected
+    if st.session_state.selected_bvn and st.button("📌 Individual Economic Activity", use_container_width=True):
+        st.session_state.nav = "Individuals_Economic_Activity"
+
+
+
+# --- 5B. Render Functions for Views ---
+# --- VIEW: INDIVIDUALS (ECONOMIC ACTIVITY DEEP DIVE) ---
+def render_individuals_view():
+    st.title("Individuals")
+
+    directory = people.merge(risk[["bvn", "risk_score", "status"]], on="bvn", how="left")
+    directory["status"] = directory["status"].fillna("Unknown")
+    directory["risk_score"] = pd.to_numeric(directory["risk_score"], errors="coerce").fillna(-1)
+
+    # Guard columns
+    if "state_of_residence" not in directory.columns:
+        st.error("Missing column state_of_residence in nigeria_people_dataset.csv")
+        st.stop()
+    if "local_government_area" not in directory.columns:
+        st.error("Missing column local_government_area in nigeria_people_dataset.csv")
+        st.stop()
+
+    # Filters (in-page, since her sidebar already used for app-wide nav)
+    with st.expander("Filters", expanded=True):
+        c1, c2, c3, c4 = st.columns(4)
+
+        with c1:
+            states = ["All"] + sorted(directory["state_of_residence"].dropna().unique().tolist())
+            selected_state = st.selectbox("State of residence", states, key="ind_state")
+
+        subset = directory.copy()
+        if selected_state != "All":
+            subset = subset[subset["state_of_residence"] == selected_state].copy()
+
+        with c2:
+            lgas = ["All"] + sorted(subset["local_government_area"].dropna().unique().tolist())
+            selected_lga = st.selectbox("LGA (tax area)", lgas, key="ind_lga")
+
+        if selected_lga != "All":
+            subset = subset[subset["local_government_area"] == selected_lga].copy()
+
+        with c3:
+            statuses = ["All"] + sorted(subset["status"].dropna().unique().tolist())
+            selected_status = st.selectbox("Risk status", statuses, key="ind_status")
+
+        if selected_status != "All":
+            subset = subset[subset["status"] == selected_status].copy()
+
+        with c4:
+            search = st.text_input("Search (BVN)", "", key="ind_search").strip().lower()
+
+        if search:
+            subset = subset[subset["bvn"].str.contains(search, na=False)].copy()
+
+    st.write(f"Showing **{len(subset):,}** individuals")
+
+    # Sorting
+    status_order = {"Flagged": 0, "Review": 1, "Compliant": 2, "Unknown": 3}
+    subset["status_rank"] = subset["status"].map(status_order).fillna(99)
+    subset = subset.sort_values(["status_rank", "risk_score"], ascending=[True, False])
+
+    # Pagination
+    st.divider()
+    cA, cB, cC = st.columns([1, 1, 2])
+    with cA:
+        page_size = st.selectbox("Rows per page", [50, 100, 200, 500, 1000], index=2, key="ind_page_size")
+    total_rows = len(subset)
+    total_pages = max(1, (total_rows + page_size - 1) // page_size)
+
+    with cB:
+        page = st.number_input("Page", min_value=1, max_value=total_pages, value=1, step=1, key="ind_page")
+
+    start = (page - 1) * page_size
+    end = min(start + page_size, total_rows)
+    page_df = subset.iloc[start:end].copy()
+
+    st.caption(f"Page **{page}** of **{total_pages}** — rows **{start+1:,}–{end:,}**")
+
+    # Display table
+    show = page_df[["bvn", "state_of_residence", "local_government_area", "risk_score", "status"]].rename(
+        columns={
+            "bvn": "BVN",
+            "state_of_residence": "State (Residence)",
+            "local_government_area": "LGA (Residence)",
+            "risk_score": "Risk Score",
+            "status": "Risk Status",
+        }
+    )
+
+    st.dataframe(show, use_container_width=True, height=520)
+
+    st.write("### Open Individual")
+    bvn_options = page_df["bvn"].dropna().astype(str).tolist()
+    if not bvn_options:
+        st.info("No BVN available in this filtered view.")
+        return
+
+    chosen_bvn = st.selectbox("Select BVN to view economic activity", bvn_options, key="ind_pick_bvn")
+    if st.button("View Economic Activity →", use_container_width=True, key="ind_open_details"):
+        st.session_state.selected_bvn = chosen_bvn
+        st.session_state.nav = "Individuals_Economic_Activity"
+        st.rerun()
+
+# --- VIEW: INDIVIDUALS ECONOMIC ACTIVITY DEEP DIVE ---
+
+def render_individual_econ_activity_view():
+    bvn = st.session_state.selected_bvn
+
+    if not bvn:
+        st.warning("No individual selected.")
+        if st.button("← Go to Individuals"):
+            st.session_state.nav = "Individuals"
+            st.rerun()
+        return
+
+    # Back button
+    if st.button("← Back to Individuals"):
+        st.session_state.nav = "Individuals"
+        st.rerun()
+
+    # Pull records
+    p_df = people[people["bvn"] == str(bvn)]
+    if p_df.empty:
+        st.error("BVN not found in people dataset.")
+        return
+    p = p_df.iloc[0]
+
+    d_df = demo[demo["bvn"] == str(bvn)]
+    d = d_df.iloc[0] if not d_df.empty else None
+
+    r_df = risk[risk["bvn"] == str(bvn)]
+    r = r_df.iloc[0] if not r_df.empty else None
+
+    name = "Unknown Name"
+    emp_status = ""
+    if d is not None:
+        first = str(d.get("first_name", "")).strip()
+        last = str(d.get("last_name", "")).strip()
+        name = (f"{first} {last}").strip() or "Unknown Name"
+        emp_status = str(d.get("employment_status", "")).strip()
+
+    state_res = str(p.get("state_of_residence", "")).strip()
+    lga_res = str(p.get("local_government_area", "")).strip()
+    income_src = str(p.get("source_of_income", "")).strip()
+
+    st.title("Individual Economic Activity")
+
+    left, right = st.columns([2, 1], vertical_alignment="top")
+    with left:
+        st.subheader(name)
+        st.caption(f"BVN: {bvn}")
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("State (Residence)", state_res or "—")
+        c2.metric("LGA (Residence)", lga_res or "—")
+        c3.metric("Source of Income", income_src or "—")
+        c4.metric("Employment Status", emp_status or "—")
+
+    with right:
+        if r is not None:
+            st.metric("Risk Status", str(r.get("status", "Unknown")))
+            rs = r.get("risk_score", np.nan)
+            st.metric("Risk Score", f"{float(rs):.1f}" if pd.notna(rs) else "N/A")
+            reason = str(r.get("flag_reason", "")).strip()
+            if reason:
+                st.caption(reason)
+
+    st.divider()
+
+    tabs = st.tabs(["Overview", "Spending", "Transactions", "Accounts", "Employment"])
+
+    # ---- Overview
+    with tabs[0]:
+        m = monthly[monthly["bvn"] == str(bvn)].copy()
+        if m.empty:
+            st.warning("No monthly metrics found for this BVN.")
+        else:
+            m = m.sort_values("year_month")
+            total_in = float(m["total_inflows"].sum()) if "total_inflows" in m.columns else 0.0
+            total_out = float(m["total_outflows"].sum()) if "total_outflows" in m.columns else 0.0
+            avg_ratio = float(m["spending_ratio"].dropna().mean()) if "spending_ratio" in m.columns else np.nan
+
+            k1, k2, k3 = st.columns(3)
+            k1.metric("Total Inflows", naira(total_in))
+            k2.metric("Total Outflows", naira(total_out))
+            k3.metric("Avg Spending Ratio", fmt_ratio(avg_ratio))
+
+            df_tot = pd.DataFrame({"Type": ["Inflows", "Outflows"], "Amount": [total_in, total_out]})
+            fig = px.bar(df_tot, x="Type", y="Amount", text="Amount")
+            fig.update_traces(texttemplate="₦%{text:,.0f}", textposition="outside")
+            fig.update_layout(yaxis_title="Amount (₦)", xaxis_title="")
+            st.plotly_chart(fig, use_container_width=True)
+
+    # ---- Spending
+    with tabs[1]:
+        t_all = txns[txns["bvn"] == str(bvn)].copy()
+        t_all["txn_datetime"] = pd.to_datetime(t_all["txn_datetime"], errors="coerce")
+        t_all = t_all.dropna(subset=["txn_datetime"]).copy()
+
+        outflows = t_all[t_all["direction"].astype(str).str.lower() == "outflow"].copy()
+        if outflows.empty:
+            st.warning("No outflow/spending transactions found.")
+        else:
+            outflows["month"] = month_label(outflows["txn_datetime"])
+
+            months = sorted(outflows["month"].dropna().unique().tolist())
+            if not months:
+                st.warning("No month information found.")
+            else:
+                cA, cB = st.columns(2)
+                with cA:
+                    start_m = st.selectbox("From month", months, index=0, key=f"econ_from_{bvn}")
+                with cB:
+                    end_m = st.selectbox("To month", months, index=len(months)-1, key=f"econ_to_{bvn}")
+                outflows = outflows[(outflows["month"] >= start_m) & (outflows["month"] <= end_m)].copy()
+
+            cat_totals = (outflows.groupby("category_use", as_index=False)["amount"].sum()
+                          .sort_values("amount", ascending=False))
+            cat_totals["Category"] = cat_totals["category_use"].apply(title_case_label)
+
+            fig_pie = px.pie(cat_totals.head(10), names="Category", values="amount", hole=0.45)
+            fig_pie.update_traces(textinfo="percent+label")
+            st.plotly_chart(fig_pie, use_container_width=True)
+
+            fig_bar = px.bar(cat_totals.head(12), x="Category", y="amount", text="amount")
+            fig_bar.update_traces(texttemplate="₦%{text:,.0f}", textposition="outside")
+            fig_bar.update_layout(xaxis_title="", yaxis_title="Amount (₦)")
+            st.plotly_chart(fig_bar, use_container_width=True)
+
+    # ---- Transactions
+    with tabs[2]:
+        t_all = txns[txns["bvn"] == str(bvn)].copy()
+        t_all["txn_datetime"] = pd.to_datetime(t_all["txn_datetime"], errors="coerce")
+        t_all = t_all.dropna(subset=["txn_datetime"]).copy()
+        if t_all.empty:
+            st.warning("No transactions found.")
+        else:
+            t_all = t_all.sort_values("txn_datetime", ascending=False)
+            t_show = t_all.copy()
+            t_show["Date/Time"] = t_show["txn_datetime"].dt.strftime("%Y-%m-%d %H:%M")
+            t_show["Amount (₦)"] = t_show["amount"].apply(naira)
+            t_show["Category"] = t_show["category_use"].apply(title_case_label)
+            t_show["Direction"] = t_show["direction"].astype(str).str.title()
+            cols = [c for c in ["Date/Time", "Direction", "Amount (₦)", "Category", "channel", "merchant_name", "narration", "account_id"] if c in t_show.columns]
+            st.dataframe(t_show[cols].head(400), use_container_width=True, height=560)
+
+    # ---- Accounts
+    with tabs[3]:
+        a = accounts[accounts["bvn"] == str(bvn)].copy()
+        if a.empty:
+            st.warning("No accounts found.")
+        else:
+            st.dataframe(a, use_container_width=True)
+
+    # ---- Employment
+    with tabs[4]:
+        e = employment[employment["bvn"] == str(bvn)].copy()
+        if e.empty:
+            st.info("No employment records found.")
+        else:
+            e = e.merge(employers, on="employer_id", how="left")
+            if "start_date" in e.columns:
+                e["start_date"] = pd.to_datetime(e["start_date"], errors="coerce").dt.date
+            if "end_date" in e.columns:
+                e["end_date"] = pd.to_datetime(e["end_date"].replace("", pd.NA), errors="coerce").dt.date
+            st.dataframe(e, use_container_width=True)
+
+
+
+
 
 # --- 6. NAVIGATION LOGIC ---
 
@@ -156,12 +535,9 @@ elif st.session_state.nav == "Industries":
 
 # --- VIEW: INDIVIDUALS (HNI/Seyi View) ---
 elif st.session_state.nav == "Individuals":
-    st.title("HNI & Individual Monitoring")
-    # Bullet Chart Logic
-    st.write("### Income vs. Asset Correlation")
-    df_hni = load_nrs_data("individuals.csv")
-    if not df_hni.empty:
-        fig = px.scatter(df_hni, x="declared_income", y="asset_value", color="status", hover_name="name")
-        st.plotly_chart(fig, use_container_width=True)
+    render_individuals_view()
+
+elif st.session_state.nav == "Individuals_Economic_Activity":
+    render_individual_econ_activity_view()
 
 
