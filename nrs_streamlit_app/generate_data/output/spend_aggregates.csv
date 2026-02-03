@@ -1,0 +1,841 @@
+state,lga,category,total_amount,transaction_count
+Abuja (FCT),Abaji,Clothing,2417777842.5181775,950
+Abuja (FCT),Abaji,Debt Repayment,2358892651.5211053,946
+Abuja (FCT),Abaji,Education,2270039781.689169,941
+Abuja (FCT),Abaji,Entertainment,2355562792.055021,960
+Abuja (FCT),Abaji,Food,2628625134.5607934,1009
+Abuja (FCT),Abaji,Gift,2550902488.012083,949
+Abuja (FCT),Abaji,Healthcare,2438034868.558249,965
+Abuja (FCT),Abaji,Insurance,2335891538.6886888,933
+Abuja (FCT),Abaji,Investment,2367026987.458253,941
+Abuja (FCT),Abaji,Medicals,2363512045.6174164,944
+Abuja (FCT),Abaji,Rent,2468391389.2892227,951
+Abuja (FCT),Abaji,Restaurant,2291618285.8088427,930
+Abuja (FCT),Abaji,Salary,2623321931.3857746,1007
+Abuja (FCT),Abaji,Transportation,2433017735.9958377,973
+Abuja (FCT),Abuja Municipal,Clothing,2403196282.9570723,951
+Abuja (FCT),Abuja Municipal,Debt Repayment,2258030762.9575863,921
+Abuja (FCT),Abuja Municipal,Education,2385139539.116478,961
+Abuja (FCT),Abuja Municipal,Entertainment,2338169527.5816555,938
+Abuja (FCT),Abuja Municipal,Food,2424930489.6418304,969
+Abuja (FCT),Abuja Municipal,Gift,2542184225.236205,980
+Abuja (FCT),Abuja Municipal,Healthcare,2352698706.3373013,916
+Abuja (FCT),Abuja Municipal,Insurance,2368074652.091027,962
+Abuja (FCT),Abuja Municipal,Investment,2266744140.219791,927
+Abuja (FCT),Abuja Municipal,Medicals,2270926553.5055265,925
+Abuja (FCT),Abuja Municipal,Rent,2366352733.9800725,946
+Abuja (FCT),Abuja Municipal,Restaurant,2412318694.50552,979
+Abuja (FCT),Abuja Municipal,Salary,2421528441.119316,967
+Abuja (FCT),Abuja Municipal,Transportation,2415576695.7031856,987
+Abuja (FCT),Bwari,Clothing,2403709205.7961683,940
+Abuja (FCT),Bwari,Debt Repayment,2389986899.2361674,942
+Abuja (FCT),Bwari,Education,2331725266.528008,957
+Abuja (FCT),Bwari,Entertainment,2362964023.1535373,953
+Abuja (FCT),Bwari,Food,2481973481.649035,977
+Abuja (FCT),Bwari,Gift,2546657394.3360515,999
+Abuja (FCT),Bwari,Healthcare,2379871740.963687,936
+Abuja (FCT),Bwari,Insurance,2547538728.026841,1010
+Abuja (FCT),Bwari,Investment,2299387659.588941,939
+Abuja (FCT),Bwari,Medicals,2461979728.201814,980
+Abuja (FCT),Bwari,Rent,2302158709.266643,928
+Abuja (FCT),Bwari,Restaurant,2406878024.252643,967
+Abuja (FCT),Bwari,Salary,2405089880.1063685,947
+Abuja (FCT),Bwari,Transportation,2478995018.0261703,979
+Abuja (FCT),Gwagwalada,Clothing,2360524090.0034466,959
+Abuja (FCT),Gwagwalada,Debt Repayment,2261078796.0845227,921
+Abuja (FCT),Gwagwalada,Education,2348535357.2729273,977
+Abuja (FCT),Gwagwalada,Entertainment,2373523610.0817747,990
+Abuja (FCT),Gwagwalada,Food,2411371030.8273435,962
+Abuja (FCT),Gwagwalada,Gift,2416465730.063541,949
+Abuja (FCT),Gwagwalada,Healthcare,2495092023.7435737,971
+Abuja (FCT),Gwagwalada,Insurance,2326156660.5695877,953
+Abuja (FCT),Gwagwalada,Investment,2247824961.2589717,905
+Abuja (FCT),Gwagwalada,Medicals,2377073460.9621234,951
+Abuja (FCT),Gwagwalada,Rent,2459825754.663412,994
+Abuja (FCT),Gwagwalada,Restaurant,2315884813.5885334,925
+Abuja (FCT),Gwagwalada,Salary,2396675418.954222,942
+Abuja (FCT),Gwagwalada,Transportation,2434921797.7322903,986
+Abuja (FCT),Kuje,Clothing,2314310548.842508,934
+Abuja (FCT),Kuje,Debt Repayment,2168590069.590421,864
+Abuja (FCT),Kuje,Education,2410847406.034344,958
+Abuja (FCT),Kuje,Entertainment,2340274420.8147554,959
+Abuja (FCT),Kuje,Food,2429677357.55178,938
+Abuja (FCT),Kuje,Gift,2480349446.1428895,959
+Abuja (FCT),Kuje,Healthcare,2496292131.355128,978
+Abuja (FCT),Kuje,Insurance,2420842915.3232493,965
+Abuja (FCT),Kuje,Investment,2437628946.706729,940
+Abuja (FCT),Kuje,Medicals,2324699695.0370355,951
+Abuja (FCT),Kuje,Rent,2344690810.4227076,953
+Abuja (FCT),Kuje,Restaurant,2306278157.153229,946
+Abuja (FCT),Kuje,Salary,2436900238.055313,980
+Abuja (FCT),Kuje,Transportation,2323586636.0403514,962
+Abuja (FCT),Kwali,Clothing,2376152452.3359346,925
+Abuja (FCT),Kwali,Debt Repayment,2269028927.820987,922
+Abuja (FCT),Kwali,Education,2367788920.7777653,968
+Abuja (FCT),Kwali,Entertainment,2305997448.751838,928
+Abuja (FCT),Kwali,Food,2187887150.043017,871
+Abuja (FCT),Kwali,Gift,2403294087.39976,936
+Abuja (FCT),Kwali,Healthcare,2247267376.2309923,937
+Abuja (FCT),Kwali,Insurance,2307104291.685513,911
+Abuja (FCT),Kwali,Investment,2291892463.242148,898
+Abuja (FCT),Kwali,Medicals,2376405041.6813307,948
+Abuja (FCT),Kwali,Rent,2366865257.5862722,949
+Abuja (FCT),Kwali,Restaurant,2550089709.3440194,968
+Abuja (FCT),Kwali,Salary,2257372468.0173764,889
+Abuja (FCT),Kwali,Transportation,2383063945.639173,967
+Akwa Ibom,Eket,Clothing,2555850941.781881,1018
+Akwa Ibom,Eket,Debt Repayment,2338419230.376415,937
+Akwa Ibom,Eket,Education,2276861892.48643,906
+Akwa Ibom,Eket,Entertainment,2517056485.5826726,995
+Akwa Ibom,Eket,Food,2297902519.3071833,944
+Akwa Ibom,Eket,Gift,2405996354.760712,964
+Akwa Ibom,Eket,Healthcare,2391620402.449045,968
+Akwa Ibom,Eket,Insurance,2530776239.722545,1002
+Akwa Ibom,Eket,Investment,2396388188.979642,955
+Akwa Ibom,Eket,Medicals,2381508670.068514,972
+Akwa Ibom,Eket,Rent,2334750106.429722,965
+Akwa Ibom,Eket,Restaurant,2459538711.108439,1008
+Akwa Ibom,Eket,Salary,2381011186.9610567,954
+Akwa Ibom,Eket,Transportation,2454246717.9979863,988
+Akwa Ibom,Ikot Ekpene,Clothing,2524099705.2335734,1012
+Akwa Ibom,Ikot Ekpene,Debt Repayment,2382372226.5827127,931
+Akwa Ibom,Ikot Ekpene,Education,2285108681.6912313,914
+Akwa Ibom,Ikot Ekpene,Entertainment,2445200531.544055,956
+Akwa Ibom,Ikot Ekpene,Food,2503157516.3094544,997
+Akwa Ibom,Ikot Ekpene,Gift,2552906217.649685,970
+Akwa Ibom,Ikot Ekpene,Healthcare,2349141442.2264423,934
+Akwa Ibom,Ikot Ekpene,Insurance,2451634130.6855497,971
+Akwa Ibom,Ikot Ekpene,Investment,2340127641.9382334,981
+Akwa Ibom,Ikot Ekpene,Medicals,2332127238.634676,920
+Akwa Ibom,Ikot Ekpene,Rent,2435276590.825551,943
+Akwa Ibom,Ikot Ekpene,Restaurant,2349151114.1020904,896
+Akwa Ibom,Ikot Ekpene,Salary,2292820290.08673,907
+Akwa Ibom,Ikot Ekpene,Transportation,2286661537.832415,893
+Akwa Ibom,Uyo,Clothing,2246033195.5627313,939
+Akwa Ibom,Uyo,Debt Repayment,2429201958.3253536,967
+Akwa Ibom,Uyo,Education,2383202572.561631,963
+Akwa Ibom,Uyo,Entertainment,2538863317.9179053,984
+Akwa Ibom,Uyo,Food,2382134938.012455,942
+Akwa Ibom,Uyo,Gift,2518191420.1753683,950
+Akwa Ibom,Uyo,Healthcare,2309693980.554359,916
+Akwa Ibom,Uyo,Insurance,2252165405.8816776,925
+Akwa Ibom,Uyo,Investment,2271531894.039999,912
+Akwa Ibom,Uyo,Medicals,2311125526.993597,936
+Akwa Ibom,Uyo,Rent,2439122910.4826775,976
+Akwa Ibom,Uyo,Restaurant,2310529150.1809607,944
+Akwa Ibom,Uyo,Salary,2502991368.008664,981
+Akwa Ibom,Uyo,Transportation,2267461530.748911,914
+Anambra,Awka South,Clothing,2331902891.9458046,929
+Anambra,Awka South,Debt Repayment,2406288981.8780007,946
+Anambra,Awka South,Education,2295992144.4714127,936
+Anambra,Awka South,Entertainment,2355665523.7559934,912
+Anambra,Awka South,Food,2250757515.4051795,919
+Anambra,Awka South,Gift,2392780952.229516,930
+Anambra,Awka South,Healthcare,2352324437.300975,941
+Anambra,Awka South,Insurance,2421370746.606416,972
+Anambra,Awka South,Investment,2395261395.645753,943
+Anambra,Awka South,Medicals,2263384242.2707205,919
+Anambra,Awka South,Rent,2372167065.831206,959
+Anambra,Awka South,Restaurant,2219964802.9360514,903
+Anambra,Awka South,Salary,2271166437.9304395,901
+Anambra,Awka South,Transportation,2264285031.5978637,906
+Anambra,Idemili South,Clothing,2470951620.4888983,970
+Anambra,Idemili South,Debt Repayment,2302886097.708903,937
+Anambra,Idemili South,Education,2623384683.7922673,1028
+Anambra,Idemili South,Entertainment,2269761297.2408915,928
+Anambra,Idemili South,Food,2521709043.007967,1022
+Anambra,Idemili South,Gift,2661619263.3724785,1024
+Anambra,Idemili South,Healthcare,2280537087.1199594,934
+Anambra,Idemili South,Insurance,2490010848.087359,975
+Anambra,Idemili South,Investment,2346226786.974534,931
+Anambra,Idemili South,Medicals,2531835441.314705,997
+Anambra,Idemili South,Rent,2464354541.6071215,992
+Anambra,Idemili South,Restaurant,2485316001.9924803,981
+Anambra,Idemili South,Salary,2540755685.7897134,1000
+Anambra,Idemili South,Transportation,2512461475.2338624,979
+Anambra,Nnewi North,Clothing,2512583813.2027493,1010
+Anambra,Nnewi North,Debt Repayment,2230811568.5048747,920
+Anambra,Nnewi North,Education,2415300072.584005,940
+Anambra,Nnewi North,Entertainment,2356746974.858741,932
+Anambra,Nnewi North,Food,2410304388.94822,969
+Anambra,Nnewi North,Gift,2405901834.33638,936
+Anambra,Nnewi North,Healthcare,2560332256.236122,1002
+Anambra,Nnewi North,Insurance,2398647309.1379085,953
+Anambra,Nnewi North,Investment,2237267856.041466,885
+Anambra,Nnewi North,Medicals,2348604504.358608,945
+Anambra,Nnewi North,Rent,2347201914.893622,954
+Anambra,Nnewi North,Restaurant,2233698012.13898,906
+Anambra,Nnewi North,Salary,2241852214.5429406,899
+Anambra,Nnewi North,Transportation,2496598698.976535,974
+Anambra,Onitsha North,Clothing,2459350908.0819473,977
+Anambra,Onitsha North,Debt Repayment,2435421192.0610223,1000
+Anambra,Onitsha North,Education,2572216643.391726,1016
+Anambra,Onitsha North,Entertainment,2576582882.288248,983
+Anambra,Onitsha North,Food,2266151146.4171925,943
+Anambra,Onitsha North,Gift,2440860014.0706725,968
+Anambra,Onitsha North,Healthcare,2461595284.693871,987
+Anambra,Onitsha North,Insurance,2381914972.04804,930
+Anambra,Onitsha North,Investment,2366765248.0576887,931
+Anambra,Onitsha North,Medicals,2350665685.3659487,941
+Anambra,Onitsha North,Rent,2385294519.4573984,960
+Anambra,Onitsha North,Restaurant,2507728675.3161607,1001
+Anambra,Onitsha North,Salary,2488656166.938839,991
+Anambra,Onitsha North,Transportation,2361391171.266895,930
+Delta,Sapele,Clothing,2447129001.816608,980
+Delta,Sapele,Debt Repayment,2446352065.2547717,982
+Delta,Sapele,Education,2420439048.5484643,961
+Delta,Sapele,Entertainment,2261560375.8699937,915
+Delta,Sapele,Food,2439821758.6216245,970
+Delta,Sapele,Gift,2483588134.138007,979
+Delta,Sapele,Healthcare,2312308799.857562,915
+Delta,Sapele,Insurance,2518198562.2370186,993
+Delta,Sapele,Investment,2209653827.446514,923
+Delta,Sapele,Medicals,2317336204.1473513,923
+Delta,Sapele,Rent,2350609039.479252,926
+Delta,Sapele,Restaurant,2485769617.3186607,996
+Delta,Sapele,Salary,2334641414.722306,931
+Delta,Sapele,Transportation,2364251638.176957,934
+Delta,Ughelli North,Clothing,2289006198.186427,924
+Delta,Ughelli North,Debt Repayment,2323940454.6614013,930
+Delta,Ughelli North,Education,2395821125.187478,963
+Delta,Ughelli North,Entertainment,2304931868.704093,904
+Delta,Ughelli North,Food,2552978012.2112203,1006
+Delta,Ughelli North,Gift,2473818153.176225,941
+Delta,Ughelli North,Healthcare,2299720443.465511,907
+Delta,Ughelli North,Insurance,2647516052.4395366,1039
+Delta,Ughelli North,Investment,2332919619.5428157,922
+Delta,Ughelli North,Medicals,2307078973.5968537,937
+Delta,Ughelli North,Rent,2421095972.0183735,984
+Delta,Ughelli North,Restaurant,2436015791.3520017,968
+Delta,Ughelli North,Salary,2369022137.0005426,949
+Delta,Ughelli North,Transportation,2376249622.098914,948
+Delta,Uyo,Clothing,2525259116.694925,1012
+Delta,Uyo,Debt Repayment,2261770672.0322413,935
+Delta,Uyo,Education,2377385143.1730857,959
+Delta,Uyo,Entertainment,2414206518.963502,961
+Delta,Uyo,Food,2518587210.570995,970
+Delta,Uyo,Gift,2614793263.3251395,973
+Delta,Uyo,Healthcare,2495947869.622006,989
+Delta,Uyo,Insurance,2542805547.0342197,1008
+Delta,Uyo,Investment,2701224864.20712,1063
+Delta,Uyo,Medicals,2215047913.8578186,897
+Delta,Uyo,Rent,2464908870.2754917,1018
+Delta,Uyo,Restaurant,2548297389.1247606,1019
+Delta,Uyo,Salary,2496523582.5234966,967
+Delta,Uyo,Transportation,2265637295.567448,953
+Delta,Warri South,Clothing,2439566037.386137,970
+Delta,Warri South,Debt Repayment,2410050176.05908,943
+Delta,Warri South,Education,2478840262.797066,996
+Delta,Warri South,Entertainment,2617038173.7183833,1003
+Delta,Warri South,Food,2310917842.404528,916
+Delta,Warri South,Gift,2515440423.991595,995
+Delta,Warri South,Healthcare,2379084712.1250906,946
+Delta,Warri South,Insurance,2278632384.3613997,929
+Delta,Warri South,Investment,2624928739.88434,1013
+Delta,Warri South,Medicals,2427206331.0505595,984
+Delta,Warri South,Rent,2466326832.1603765,982
+Delta,Warri South,Restaurant,2425378245.8588867,962
+Delta,Warri South,Salary,2343047388.038383,943
+Delta,Warri South,Transportation,2446588676.6409407,991
+Edo,Egor,Clothing,2172905009.1294003,912
+Edo,Egor,Debt Repayment,2305914216.465396,928
+Edo,Egor,Education,2304189103.5627728,942
+Edo,Egor,Entertainment,2298798299.600119,920
+Edo,Egor,Food,2396463899.8076363,955
+Edo,Egor,Gift,2401626924.780129,922
+Edo,Egor,Healthcare,2350100385.3397746,939
+Edo,Egor,Insurance,2286302401.461442,916
+Edo,Egor,Investment,2352655237.89944,938
+Edo,Egor,Medicals,2381303780.9364095,927
+Edo,Egor,Rent,2296389615.627335,904
+Edo,Egor,Restaurant,2406462345.287378,975
+Edo,Egor,Salary,2333838993.6868443,942
+Edo,Egor,Transportation,2227624393.207406,896
+Edo,Ikpoba-Okha,Clothing,2251124652.0246577,901
+Edo,Ikpoba-Okha,Debt Repayment,2491589746.7735515,1009
+Edo,Ikpoba-Okha,Education,2577622233.022614,983
+Edo,Ikpoba-Okha,Entertainment,2372083539.3652806,964
+Edo,Ikpoba-Okha,Food,2415516306.9996405,969
+Edo,Ikpoba-Okha,Gift,2406500392.370744,956
+Edo,Ikpoba-Okha,Healthcare,2426562780.4110885,973
+Edo,Ikpoba-Okha,Insurance,2439525193.6355677,985
+Edo,Ikpoba-Okha,Investment,2482202506.4962234,1002
+Edo,Ikpoba-Okha,Medicals,2445082595.2153893,1001
+Edo,Ikpoba-Okha,Rent,2477046469.6489005,1012
+Edo,Ikpoba-Okha,Restaurant,2416233923.517613,962
+Edo,Ikpoba-Okha,Salary,2328815412.3615913,968
+Edo,Ikpoba-Okha,Transportation,2448300463.884299,962
+Edo,Oredo,Clothing,2312712662.476673,931
+Edo,Oredo,Debt Repayment,2365302982.518891,926
+Edo,Oredo,Education,2331431399.4582,937
+Edo,Oredo,Entertainment,2277239741.9175897,915
+Edo,Oredo,Food,2379889900.2691236,972
+Edo,Oredo,Gift,2437924929.7640524,949
+Edo,Oredo,Healthcare,2260233822.6972294,907
+Edo,Oredo,Insurance,2275630459.8211465,897
+Edo,Oredo,Investment,2382261981.132389,968
+Edo,Oredo,Medicals,2330963514.011583,931
+Edo,Oredo,Rent,2371740608.3265076,963
+Edo,Oredo,Restaurant,2376329632.5583715,968
+Edo,Oredo,Salary,2263055200.410899,910
+Edo,Oredo,Transportation,2448343875.711408,969
+Enugu,Enugu North,Clothing,2398962209.972088,962
+Enugu,Enugu North,Debt Repayment,2426564257.7823663,1011
+Enugu,Enugu North,Education,2341098631.973295,937
+Enugu,Enugu North,Entertainment,2534691016.44833,1002
+Enugu,Enugu North,Food,2484922712.865004,989
+Enugu,Enugu North,Gift,2566820294.8424,960
+Enugu,Enugu North,Healthcare,2357517498.523874,938
+Enugu,Enugu North,Insurance,2250619597.5291758,903
+Enugu,Enugu North,Investment,2434476232.4299183,979
+Enugu,Enugu North,Medicals,2227252219.3734207,922
+Enugu,Enugu North,Rent,2558276340.44067,977
+Enugu,Enugu North,Restaurant,2405828593.7600727,973
+Enugu,Enugu North,Salary,2446160072.1484904,960
+Enugu,Enugu North,Transportation,2427705824.553816,962
+Enugu,Nsukka,Clothing,2351716702.323548,932
+Enugu,Nsukka,Debt Repayment,2360814076.704947,929
+Enugu,Nsukka,Education,2463688464.7414393,956
+Enugu,Nsukka,Entertainment,2528237989.9622784,997
+Enugu,Nsukka,Food,2417328644.745765,965
+Enugu,Nsukka,Gift,2339375613.542556,919
+Enugu,Nsukka,Healthcare,2323841744.7535057,929
+Enugu,Nsukka,Insurance,2357173798.1410027,934
+Enugu,Nsukka,Investment,2249080303.7903433,867
+Enugu,Nsukka,Medicals,2273336807.875733,915
+Enugu,Nsukka,Rent,2241885646.2315397,912
+Enugu,Nsukka,Restaurant,2282491316.090905,921
+Enugu,Nsukka,Salary,2511651303.586561,1018
+Enugu,Nsukka,Transportation,2399666586.0631156,939
+Enugu,Udi,Clothing,2161767029.3727674,903
+Enugu,Udi,Debt Repayment,2388654949.7746253,964
+Enugu,Udi,Education,2370415820.404753,973
+Enugu,Udi,Entertainment,2405930762.7183757,950
+Enugu,Udi,Food,2478052378.721137,993
+Enugu,Udi,Gift,2470589559.5201135,959
+Enugu,Udi,Healthcare,2344761564.733689,942
+Enugu,Udi,Insurance,2286663037.294282,950
+Enugu,Udi,Investment,2565562122.2990103,968
+Enugu,Udi,Medicals,2395163789.7683134,947
+Enugu,Udi,Rent,2487891467.856302,1003
+Enugu,Udi,Restaurant,2537574673.9874415,1020
+Enugu,Udi,Salary,2336039132.6794324,920
+Enugu,Udi,Transportation,2374151422.451397,971
+Kaduna,Kaduna North,Clothing,2378003660.563143,934
+Kaduna,Kaduna North,Debt Repayment,2373875563.7346396,944
+Kaduna,Kaduna North,Education,2271379932.841907,927
+Kaduna,Kaduna North,Entertainment,2474534645.8970013,966
+Kaduna,Kaduna North,Food,2334983736.9777455,916
+Kaduna,Kaduna North,Gift,2415215000.271663,940
+Kaduna,Kaduna North,Healthcare,2279151119.5539765,951
+Kaduna,Kaduna North,Insurance,2385919342.1624556,948
+Kaduna,Kaduna North,Investment,2218279873.5038714,902
+Kaduna,Kaduna North,Medicals,2545409737.2431927,971
+Kaduna,Kaduna North,Rent,2384511377.6287756,957
+Kaduna,Kaduna North,Restaurant,2247978504.6022897,892
+Kaduna,Kaduna North,Salary,2286272844.1629677,908
+Kaduna,Kaduna North,Transportation,2215055389.013747,917
+Kaduna,Kaduna South,Clothing,2301064288.1060033,953
+Kaduna,Kaduna South,Debt Repayment,2535744761.941134,985
+Kaduna,Kaduna South,Education,2415719214.134157,967
+Kaduna,Kaduna South,Entertainment,2553339596.38359,1002
+Kaduna,Kaduna South,Food,2421638272.9525843,956
+Kaduna,Kaduna South,Gift,2431814183.464142,980
+Kaduna,Kaduna South,Healthcare,2391649017.546499,962
+Kaduna,Kaduna South,Insurance,2415729429.5950503,972
+Kaduna,Kaduna South,Investment,2350331893.517174,921
+Kaduna,Kaduna South,Medicals,2378409625.2092524,933
+Kaduna,Kaduna South,Rent,2347924912.265564,912
+Kaduna,Kaduna South,Restaurant,2407581954.7223296,969
+Kaduna,Kaduna South,Salary,2342190769.8925433,943
+Kaduna,Kaduna South,Transportation,2479023493.82819,977
+Kaduna,Kafanchan,Clothing,2425303895.311727,962
+Kaduna,Kafanchan,Debt Repayment,2522282463.7649145,1003
+Kaduna,Kafanchan,Education,2547804233.3651743,1002
+Kaduna,Kafanchan,Entertainment,2496281967.872492,986
+Kaduna,Kafanchan,Food,2491174045.01769,1001
+Kaduna,Kafanchan,Gift,2422133636.0865526,954
+Kaduna,Kafanchan,Healthcare,2475495229.134255,982
+Kaduna,Kafanchan,Insurance,2469801263.92845,996
+Kaduna,Kafanchan,Investment,2364318901.5762014,947
+Kaduna,Kafanchan,Medicals,2453858795.399364,964
+Kaduna,Kafanchan,Rent,2297657760.3127217,945
+Kaduna,Kafanchan,Restaurant,2493177936.575839,998
+Kaduna,Kafanchan,Salary,2341119781.3005424,936
+Kaduna,Kafanchan,Transportation,2444950671.413501,994
+Kaduna,Zaria,Clothing,2389231771.1829505,977
+Kaduna,Zaria,Debt Repayment,2270385584.140737,892
+Kaduna,Zaria,Education,2566484558.546101,980
+Kaduna,Zaria,Entertainment,2360717243.680901,938
+Kaduna,Zaria,Food,2237646474.410389,916
+Kaduna,Zaria,Gift,2508359963.3543324,979
+Kaduna,Zaria,Healthcare,2315896721.430828,920
+Kaduna,Zaria,Insurance,2342797817.063126,960
+Kaduna,Zaria,Investment,2308810137.667474,926
+Kaduna,Zaria,Medicals,2426595001.80943,986
+Kaduna,Zaria,Rent,2405181198.3317986,934
+Kaduna,Zaria,Restaurant,2286273276.866166,936
+Kaduna,Zaria,Salary,2433915620.3785086,967
+Kaduna,Zaria,Transportation,2393428616.6067133,962
+Kano,Gwale,Clothing,2255861311.1583385,910
+Kano,Gwale,Debt Repayment,2323675001.179644,929
+Kano,Gwale,Education,2315436402.669404,926
+Kano,Gwale,Entertainment,2388715463.9715667,930
+Kano,Gwale,Food,2359693875.765981,959
+Kano,Gwale,Gift,2369269982.772901,938
+Kano,Gwale,Healthcare,2285198371.957533,927
+Kano,Gwale,Insurance,2387779091.2220006,921
+Kano,Gwale,Investment,2396264519.6636763,968
+Kano,Gwale,Medicals,2350830655.7225733,944
+Kano,Gwale,Rent,2274114550.1996565,886
+Kano,Gwale,Restaurant,2345583224.0099463,959
+Kano,Gwale,Salary,2376188573.877892,931
+Kano,Gwale,Transportation,2265138737.23938,905
+Kano,Kano Municipal,Clothing,2345464707.72642,946
+Kano,Kano Municipal,Debt Repayment,2267102312.3702216,906
+Kano,Kano Municipal,Education,2400350531.2997174,957
+Kano,Kano Municipal,Entertainment,2492853070.7305,987
+Kano,Kano Municipal,Food,2415936851.5720134,981
+Kano,Kano Municipal,Gift,2445491382.595695,955
+Kano,Kano Municipal,Healthcare,2289967972.8439746,906
+Kano,Kano Municipal,Insurance,2260634491.0562162,914
+Kano,Kano Municipal,Investment,2296391108.4508033,914
+Kano,Kano Municipal,Medicals,2282218639.333883,934
+Kano,Kano Municipal,Rent,2331374682.975766,932
+Kano,Kano Municipal,Restaurant,2361980396.015565,897
+Kano,Kano Municipal,Salary,2501677039.5532613,983
+Kano,Kano Municipal,Transportation,2295472968.9761033,912
+Kano,Nasarawa,Clothing,2343177157.3908863,949
+Kano,Nasarawa,Debt Repayment,2356984323.8726015,978
+Kano,Nasarawa,Education,2354867012.511143,939
+Kano,Nasarawa,Entertainment,2440066971.8870406,984
+Kano,Nasarawa,Food,2332843716.616368,961
+Kano,Nasarawa,Gift,2507260485.5405946,983
+Kano,Nasarawa,Healthcare,2348413063.0609417,950
+Kano,Nasarawa,Insurance,2372510282.6334476,935
+Kano,Nasarawa,Investment,2363650123.416626,970
+Kano,Nasarawa,Medicals,2569294994.4310956,1011
+Kano,Nasarawa,Rent,2326432940.2186303,957
+Kano,Nasarawa,Restaurant,2479732169.226755,1022
+Kano,Nasarawa,Salary,2409274568.555912,973
+Kano,Nasarawa,Transportation,2388774502.894171,958
+Kano,Tarauni,Clothing,2222591203.7387133,906
+Kano,Tarauni,Debt Repayment,2198178237.4944954,913
+Kano,Tarauni,Education,2274378202.4076533,901
+Kano,Tarauni,Entertainment,2317643370.0548882,901
+Kano,Tarauni,Food,2368367651.0763016,961
+Kano,Tarauni,Gift,2361439843.4534516,896
+Kano,Tarauni,Healthcare,2377841209.183737,964
+Kano,Tarauni,Insurance,2484211739.8848815,969
+Kano,Tarauni,Investment,2348924432.6769476,937
+Kano,Tarauni,Medicals,2213636497.315258,876
+Kano,Tarauni,Rent,2178795055.132923,871
+Kano,Tarauni,Restaurant,2573729908.6906605,994
+Kano,Tarauni,Salary,2162579362.5397477,892
+Kano,Tarauni,Transportation,2315778014.409713,949
+Kwara,Ilorin East,Clothing,2568185230.4692535,1014
+Kwara,Ilorin East,Debt Repayment,2525160054.0117188,1000
+Kwara,Ilorin East,Education,2402409398.0577035,956
+Kwara,Ilorin East,Entertainment,2395095115.264411,973
+Kwara,Ilorin East,Food,2339851714.1944947,948
+Kwara,Ilorin East,Gift,2553551109.9994226,988
+Kwara,Ilorin East,Healthcare,2528137468.442521,1010
+Kwara,Ilorin East,Insurance,2262601150.057731,906
+Kwara,Ilorin East,Investment,2469241207.5678964,961
+Kwara,Ilorin East,Medicals,2419973119.5339847,950
+Kwara,Ilorin East,Rent,2505466293.6378474,998
+Kwara,Ilorin East,Restaurant,2400192114.113701,964
+Kwara,Ilorin East,Salary,2281506229.0873227,934
+Kwara,Ilorin East,Transportation,2587301799.3227363,1006
+Kwara,Ilorin West,Clothing,2362040424.2553434,974
+Kwara,Ilorin West,Debt Repayment,2383900258.7901225,916
+Kwara,Ilorin West,Education,2312254146.929815,924
+Kwara,Ilorin West,Entertainment,2335532627.014076,948
+Kwara,Ilorin West,Food,2434600994.0191135,966
+Kwara,Ilorin West,Gift,2324656092.718325,892
+Kwara,Ilorin West,Healthcare,2340389366.6079383,952
+Kwara,Ilorin West,Insurance,2484109125.4958463,995
+Kwara,Ilorin West,Investment,2272598525.477204,924
+Kwara,Ilorin West,Medicals,2372087287.515109,951
+Kwara,Ilorin West,Rent,2257354195.545347,937
+Kwara,Ilorin West,Restaurant,2267856590.3444295,917
+Kwara,Ilorin West,Salary,2318840295.757528,939
+Kwara,Ilorin West,Transportation,2395124536.397591,934
+Kwara,Offa,Clothing,2556877773.887803,1006
+Kwara,Offa,Debt Repayment,2489461818.762002,986
+Kwara,Offa,Education,2353378160.5778804,952
+Kwara,Offa,Entertainment,2413102929.301134,978
+Kwara,Offa,Food,2311891590.268576,954
+Kwara,Offa,Gift,2436735288.912525,937
+Kwara,Offa,Healthcare,2614706929.3332415,1048
+Kwara,Offa,Insurance,2430322802.143553,955
+Kwara,Offa,Investment,2466162634.351006,965
+Kwara,Offa,Medicals,2443776319.245374,988
+Kwara,Offa,Rent,2499022886.3760824,986
+Kwara,Offa,Restaurant,2440328785.081185,998
+Kwara,Offa,Salary,2449031930.563275,989
+Kwara,Offa,Transportation,2490983921.4202695,982
+Lagos,Agege,Clothing,2247766777.13081,913
+Lagos,Agege,Debt Repayment,2275020411.849739,913
+Lagos,Agege,Education,2372785243.1809754,960
+Lagos,Agege,Entertainment,2404380001.294757,960
+Lagos,Agege,Food,2490746311.264285,982
+Lagos,Agege,Gift,2426418825.153202,968
+Lagos,Agege,Healthcare,2554688098.3812943,1015
+Lagos,Agege,Insurance,2272365917.095559,936
+Lagos,Agege,Investment,2359315862.5019293,962
+Lagos,Agege,Medicals,2436940789.528438,971
+Lagos,Agege,Rent,2434339853.2285624,977
+Lagos,Agege,Restaurant,2391731334.424689,934
+Lagos,Agege,Salary,2349482972.7408123,917
+Lagos,Agege,Transportation,2371175703.783967,928
+Lagos,Alimosho,Clothing,2537195171.8182716,989
+Lagos,Alimosho,Debt Repayment,2411625931.3712144,953
+Lagos,Alimosho,Education,2434087561.1049304,971
+Lagos,Alimosho,Entertainment,2527977009.083635,1020
+Lagos,Alimosho,Food,2403318938.2777066,960
+Lagos,Alimosho,Gift,2408651793.697727,912
+Lagos,Alimosho,Healthcare,2365430866.423539,907
+Lagos,Alimosho,Insurance,2563312930.9613953,1028
+Lagos,Alimosho,Investment,2401620367.566385,951
+Lagos,Alimosho,Medicals,2516521535.323391,969
+Lagos,Alimosho,Rent,2480039695.078088,969
+Lagos,Alimosho,Restaurant,2473684264.831688,988
+Lagos,Alimosho,Salary,2151431100.406982,862
+Lagos,Alimosho,Transportation,2226640178.237898,921
+Lagos,Eti-Osa,Clothing,2504036642.2984114,990
+Lagos,Eti-Osa,Debt Repayment,2552717725.8060207,997
+Lagos,Eti-Osa,Education,2362046495.1942234,981
+Lagos,Eti-Osa,Entertainment,2403699781.0565715,947
+Lagos,Eti-Osa,Food,2273048599.211248,920
+Lagos,Eti-Osa,Gift,2521954743.67456,957
+Lagos,Eti-Osa,Healthcare,2314361563.4291997,938
+Lagos,Eti-Osa,Insurance,2193552433.4632444,904
+Lagos,Eti-Osa,Investment,2438834345.962131,927
+Lagos,Eti-Osa,Medicals,2425010942.011587,974
+Lagos,Eti-Osa,Rent,2291849994.438201,929
+Lagos,Eti-Osa,Restaurant,2279660091.666836,949
+Lagos,Eti-Osa,Salary,2475149083.563219,972
+Lagos,Eti-Osa,Transportation,2316464022.9715147,947
+Lagos,Ifako-Ijaiye,Clothing,2391437222.1738973,976
+Lagos,Ifako-Ijaiye,Debt Repayment,2345026071.835324,945
+Lagos,Ifako-Ijaiye,Education,2466848372.9389553,981
+Lagos,Ifako-Ijaiye,Entertainment,2443553241.0161314,976
+Lagos,Ifako-Ijaiye,Food,2478781827.5510287,975
+Lagos,Ifako-Ijaiye,Gift,2468878203.7727437,964
+Lagos,Ifako-Ijaiye,Healthcare,2354309824.3662205,925
+Lagos,Ifako-Ijaiye,Insurance,2519741564.6053915,987
+Lagos,Ifako-Ijaiye,Investment,2287857807.990373,910
+Lagos,Ifako-Ijaiye,Medicals,2387277477.386827,936
+Lagos,Ifako-Ijaiye,Rent,2493893352.7218776,1007
+Lagos,Ifako-Ijaiye,Restaurant,2460673935.0668373,984
+Lagos,Ifako-Ijaiye,Salary,2384588861.3013678,958
+Lagos,Ifako-Ijaiye,Transportation,2434403207.582326,963
+Lagos,Ikeja,Clothing,2409600397.535898,966
+Lagos,Ikeja,Debt Repayment,2308690394.9043446,947
+Lagos,Ikeja,Education,2273060795.7827425,930
+Lagos,Ikeja,Entertainment,2509304096.9021397,1009
+Lagos,Ikeja,Food,2395195380.0757217,953
+Lagos,Ikeja,Gift,2550526040.792536,974
+Lagos,Ikeja,Healthcare,2498743051.110454,1009
+Lagos,Ikeja,Insurance,2538416744.852834,1000
+Lagos,Ikeja,Investment,2455365642.0522785,960
+Lagos,Ikeja,Medicals,2464748528.805152,983
+Lagos,Ikeja,Rent,2503189317.844992,989
+Lagos,Ikeja,Restaurant,2261790812.221467,940
+Lagos,Ikeja,Salary,2377820313.1473885,955
+Lagos,Ikeja,Transportation,2413636018.942156,995
+Lagos,Kosofe,Clothing,2395494970.5216274,984
+Lagos,Kosofe,Debt Repayment,2428753507.803899,930
+Lagos,Kosofe,Education,2431586503.674228,962
+Lagos,Kosofe,Entertainment,2466204345.867124,988
+Lagos,Kosofe,Food,2460989781.5859914,968
+Lagos,Kosofe,Gift,2680120469.949696,1027
+Lagos,Kosofe,Healthcare,2463957557.599498,981
+Lagos,Kosofe,Insurance,2424218331.0714,950
+Lagos,Kosofe,Investment,2300028508.7975125,939
+Lagos,Kosofe,Medicals,2362749632.395719,935
+Lagos,Kosofe,Rent,2576174759.5471783,1031
+Lagos,Kosofe,Restaurant,2522019345.715845,990
+Lagos,Kosofe,Salary,2254793441.6083865,920
+Lagos,Kosofe,Transportation,2300025603.129305,949
+Lagos,Lagos Island,Clothing,2454831846.8265276,996
+Lagos,Lagos Island,Debt Repayment,2264998856.133274,941
+Lagos,Lagos Island,Education,2564613106.4650745,991
+Lagos,Lagos Island,Entertainment,2452146116.927892,982
+Lagos,Lagos Island,Food,2209357822.336519,905
+Lagos,Lagos Island,Gift,2280972580.711834,903
+Lagos,Lagos Island,Healthcare,2154522906.7676997,845
+Lagos,Lagos Island,Insurance,2350035068.186691,941
+Lagos,Lagos Island,Investment,2398004037.875237,944
+Lagos,Lagos Island,Medicals,2353221403.276777,931
+Lagos,Lagos Island,Rent,2362664218.2708216,937
+Lagos,Lagos Island,Restaurant,2165570736.1266227,884
+Lagos,Lagos Island,Salary,2234691201.988411,893
+Lagos,Lagos Island,Transportation,2365329604.346966,921
+Lagos,Mushin,Clothing,2526565270.5564327,982
+Lagos,Mushin,Debt Repayment,2493053896.589756,985
+Lagos,Mushin,Education,2471700395.7932067,979
+Lagos,Mushin,Entertainment,2395075931.205099,969
+Lagos,Mushin,Food,2330932562.177631,941
+Lagos,Mushin,Gift,2404296980.232453,950
+Lagos,Mushin,Healthcare,2354653241.5563054,963
+Lagos,Mushin,Insurance,2334651979.020315,941
+Lagos,Mushin,Investment,2345221870.159323,958
+Lagos,Mushin,Medicals,2327531899.5064454,934
+Lagos,Mushin,Rent,2351294839.874507,902
+Lagos,Mushin,Restaurant,2326360860.418646,941
+Lagos,Mushin,Salary,2399630619.1130567,948
+Lagos,Mushin,Transportation,2333402996.6278315,919
+Lagos,Oshodi-Isolo,Clothing,2490736041.031998,959
+Lagos,Oshodi-Isolo,Debt Repayment,2461180842.5739393,972
+Lagos,Oshodi-Isolo,Education,2360664742.0231795,924
+Lagos,Oshodi-Isolo,Entertainment,2379217953.8692517,966
+Lagos,Oshodi-Isolo,Food,2343850198.3399053,955
+Lagos,Oshodi-Isolo,Gift,2427267588.8899913,916
+Lagos,Oshodi-Isolo,Healthcare,2419333603.776841,991
+Lagos,Oshodi-Isolo,Insurance,2415422828.3566713,971
+Lagos,Oshodi-Isolo,Investment,2438777000.114285,972
+Lagos,Oshodi-Isolo,Medicals,2504297421.5536337,992
+Lagos,Oshodi-Isolo,Rent,2396316196.817533,962
+Lagos,Oshodi-Isolo,Restaurant,2481808555.3537464,979
+Lagos,Oshodi-Isolo,Salary,2366484157.8140526,950
+Lagos,Oshodi-Isolo,Transportation,2442173358.4926662,954
+Lagos,Surulere,Clothing,2363554837.010244,939
+Lagos,Surulere,Debt Repayment,2326894801.2586436,928
+Lagos,Surulere,Education,2371799077.427103,950
+Lagos,Surulere,Entertainment,2487564643.7411885,994
+Lagos,Surulere,Food,2493900847.934474,981
+Lagos,Surulere,Gift,2643341130.347255,1034
+Lagos,Surulere,Healthcare,2280549290.741895,918
+Lagos,Surulere,Insurance,2384056028.125116,939
+Lagos,Surulere,Investment,2543861152.2081285,1001
+Lagos,Surulere,Medicals,2488900988.559158,984
+Lagos,Surulere,Rent,2431137777.847099,969
+Lagos,Surulere,Restaurant,2389202164.126305,946
+Lagos,Surulere,Salary,2258168182.607953,916
+Lagos,Surulere,Transportation,2423035622.991573,922
+Ogun,Abeokuta North,Clothing,2262337304.1114635,929
+Ogun,Abeokuta North,Debt Repayment,2343273771.6323023,951
+Ogun,Abeokuta North,Education,2138854502.1650093,892
+Ogun,Abeokuta North,Entertainment,2268284610.4017134,891
+Ogun,Abeokuta North,Food,2214125806.8441625,899
+Ogun,Abeokuta North,Gift,2412396431.880617,961
+Ogun,Abeokuta North,Healthcare,2283793855.8337913,918
+Ogun,Abeokuta North,Insurance,2243725473.085465,906
+Ogun,Abeokuta North,Investment,2390887932.496491,963
+Ogun,Abeokuta North,Medicals,2439987132.2874465,975
+Ogun,Abeokuta North,Rent,2270321025.532242,897
+Ogun,Abeokuta North,Restaurant,2256667019.848571,907
+Ogun,Abeokuta North,Salary,2266553403.556921,921
+Ogun,Abeokuta North,Transportation,2330573092.2525034,950
+Ogun,Abeokuta South,Clothing,2344915078.8272614,910
+Ogun,Abeokuta South,Debt Repayment,2200146758.99707,903
+Ogun,Abeokuta South,Education,2320343294.2693696,955
+Ogun,Abeokuta South,Entertainment,2263004401.008708,892
+Ogun,Abeokuta South,Food,2308525677.231552,940
+Ogun,Abeokuta South,Gift,2323855904.9206047,914
+Ogun,Abeokuta South,Healthcare,2445521884.4683332,969
+Ogun,Abeokuta South,Insurance,2267417810.277077,898
+Ogun,Abeokuta South,Investment,2533827415.2732825,1036
+Ogun,Abeokuta South,Medicals,2264504797.2868357,912
+Ogun,Abeokuta South,Rent,2374359687.849792,959
+Ogun,Abeokuta South,Restaurant,2285501302.4423785,909
+Ogun,Abeokuta South,Salary,2334036509.095393,951
+Ogun,Abeokuta South,Transportation,2592426788.662403,1005
+Ogun,Ijebu Ode,Clothing,2382509487.7591386,979
+Ogun,Ijebu Ode,Debt Repayment,2509105602.4523764,1018
+Ogun,Ijebu Ode,Education,2455133664.196407,988
+Ogun,Ijebu Ode,Entertainment,2590529485.300217,1022
+Ogun,Ijebu Ode,Food,2464811678.036967,1000
+Ogun,Ijebu Ode,Gift,2542185035.1130157,981
+Ogun,Ijebu Ode,Healthcare,2538791625.043089,1030
+Ogun,Ijebu Ode,Insurance,2454878579.9831247,995
+Ogun,Ijebu Ode,Investment,2375799850.7422748,990
+Ogun,Ijebu Ode,Medicals,2376335525.608929,938
+Ogun,Ijebu Ode,Rent,2381624014.842149,946
+Ogun,Ijebu Ode,Restaurant,2405736210.207886,958
+Ogun,Ijebu Ode,Salary,2413588689.733805,975
+Ogun,Ijebu Ode,Transportation,2341470983.324164,946
+Ogun,Sagamu,Clothing,2392107203.4632626,970
+Ogun,Sagamu,Debt Repayment,2469008736.3187237,969
+Ogun,Sagamu,Education,2167023228.766915,895
+Ogun,Sagamu,Entertainment,2316892413.5370603,934
+Ogun,Sagamu,Food,2477810354.415467,964
+Ogun,Sagamu,Gift,2323107959.260135,888
+Ogun,Sagamu,Healthcare,2428949751.6498814,955
+Ogun,Sagamu,Insurance,2291952873.207428,948
+Ogun,Sagamu,Investment,2422708008.0904117,968
+Ogun,Sagamu,Medicals,2280355096.8331723,922
+Ogun,Sagamu,Rent,2344613676.2235947,930
+Ogun,Sagamu,Restaurant,2388333752.7732754,899
+Ogun,Sagamu,Salary,2248540877.6739783,907
+Ogun,Sagamu,Transportation,2348486148.8956676,943
+Oyo,Akinyele,Clothing,2368341488.11322,948
+Oyo,Akinyele,Debt Repayment,2368088201.541412,950
+Oyo,Akinyele,Education,2383539275.880834,992
+Oyo,Akinyele,Entertainment,2433579020.5258126,979
+Oyo,Akinyele,Food,2500622420.272907,999
+Oyo,Akinyele,Gift,2508720443.809215,1008
+Oyo,Akinyele,Healthcare,2259386760.8137636,896
+Oyo,Akinyele,Insurance,2373125730.734579,982
+Oyo,Akinyele,Investment,2504623090.4908204,1006
+Oyo,Akinyele,Medicals,2437504209.963211,963
+Oyo,Akinyele,Rent,2354302895.780442,944
+Oyo,Akinyele,Restaurant,2552360854.154492,1003
+Oyo,Akinyele,Salary,2453305222.0341125,970
+Oyo,Akinyele,Transportation,2265367534.552,926
+Oyo,Egbeda,Clothing,2320175349.4181542,949
+Oyo,Egbeda,Debt Repayment,2379827640.6115885,975
+Oyo,Egbeda,Education,2414655633.079734,963
+Oyo,Egbeda,Entertainment,2295861981.109811,928
+Oyo,Egbeda,Food,2387317554.7174377,943
+Oyo,Egbeda,Gift,2368554005.1573806,928
+Oyo,Egbeda,Healthcare,2319364686.3214855,914
+Oyo,Egbeda,Insurance,2331776252.1481295,940
+Oyo,Egbeda,Investment,2335391360.9896383,909
+Oyo,Egbeda,Medicals,2445166479.8724766,941
+Oyo,Egbeda,Rent,2403152356.758036,958
+Oyo,Egbeda,Restaurant,2422408249.8101177,955
+Oyo,Egbeda,Salary,2533434391.306034,988
+Oyo,Egbeda,Transportation,2182550047.1699944,872
+Oyo,Ibadan North,Clothing,2304179242.3240056,929
+Oyo,Ibadan North,Debt Repayment,2453601919.8542466,1011
+Oyo,Ibadan North,Education,2356045098.9463744,942
+Oyo,Ibadan North,Entertainment,2531795637.1363215,989
+Oyo,Ibadan North,Food,2450892771.007632,1003
+Oyo,Ibadan North,Gift,2498055059.753822,947
+Oyo,Ibadan North,Healthcare,2484471530.107598,988
+Oyo,Ibadan North,Insurance,2541168289.7268105,1014
+Oyo,Ibadan North,Investment,2426997305.134895,976
+Oyo,Ibadan North,Medicals,2444881110.6619453,990
+Oyo,Ibadan North,Rent,2347787577.7140484,939
+Oyo,Ibadan North,Restaurant,2446859377.2841873,958
+Oyo,Ibadan North,Salary,2396065251.509053,969
+Oyo,Ibadan North,Transportation,2340658553.9063225,908
+Oyo,Ibadan South-West,Clothing,2382780804.5847607,944
+Oyo,Ibadan South-West,Debt Repayment,2427395071.7483172,959
+Oyo,Ibadan South-West,Education,2319970109.4521384,942
+Oyo,Ibadan South-West,Entertainment,2304968298.9842334,942
+Oyo,Ibadan South-West,Food,2339643409.955334,917
+Oyo,Ibadan South-West,Gift,2372639096.897459,936
+Oyo,Ibadan South-West,Healthcare,2400913371.039027,995
+Oyo,Ibadan South-West,Insurance,2507201310.1835732,995
+Oyo,Ibadan South-West,Investment,2414012061.9554305,967
+Oyo,Ibadan South-West,Medicals,2380572598.8812246,972
+Oyo,Ibadan South-West,Rent,2343067193.3003373,931
+Oyo,Ibadan South-West,Restaurant,2390362228.8073077,965
+Oyo,Ibadan South-West,Salary,2487139525.415099,982
+Oyo,Ibadan South-West,Transportation,2330096106.3516335,945
+Plateau,Barkin Ladi,Clothing,2359139253.203294,920
+Plateau,Barkin Ladi,Debt Repayment,2410775188.0062294,961
+Plateau,Barkin Ladi,Education,2404470171.3895617,915
+Plateau,Barkin Ladi,Entertainment,2266853851.7122645,894
+Plateau,Barkin Ladi,Food,2225340598.9130816,901
+Plateau,Barkin Ladi,Gift,2469398582.8327236,957
+Plateau,Barkin Ladi,Healthcare,2325012855.140103,895
+Plateau,Barkin Ladi,Insurance,2273818968.474332,931
+Plateau,Barkin Ladi,Investment,2296033548.836115,936
+Plateau,Barkin Ladi,Medicals,2352054720.1846733,918
+Plateau,Barkin Ladi,Rent,2153739413.6064386,854
+Plateau,Barkin Ladi,Restaurant,2219145362.382563,887
+Plateau,Barkin Ladi,Salary,2362054566.2630463,940
+Plateau,Barkin Ladi,Transportation,2353880876.7941155,911
+Plateau,Jos North,Clothing,2285619902.6188807,875
+Plateau,Jos North,Debt Repayment,2510564128.8919163,990
+Plateau,Jos North,Education,2357826555.20323,949
+Plateau,Jos North,Entertainment,2362945711.6981864,964
+Plateau,Jos North,Food,2243067324.2405896,907
+Plateau,Jos North,Gift,2211821159.655915,887
+Plateau,Jos North,Healthcare,2320161184.7376037,932
+Plateau,Jos North,Insurance,2254500794.1608915,903
+Plateau,Jos North,Investment,2450666638.3583484,963
+Plateau,Jos North,Medicals,2066607663.5654175,845
+Plateau,Jos North,Rent,2230010015.361369,912
+Plateau,Jos North,Restaurant,2308291025.018061,933
+Plateau,Jos North,Salary,2211347327.0643787,883
+Plateau,Jos North,Transportation,2449842811.0062737,960
+Plateau,Jos South,Clothing,2542250197.6593432,987
+Plateau,Jos South,Debt Repayment,2436973913.39482,990
+Plateau,Jos South,Education,2250512885.897698,923
+Plateau,Jos South,Entertainment,2451446817.7855763,972
+Plateau,Jos South,Food,2410811209.8994145,957
+Plateau,Jos South,Gift,2476494522.6364756,977
+Plateau,Jos South,Healthcare,2363333668.847258,976
+Plateau,Jos South,Insurance,2525280419.5412393,1002
+Plateau,Jos South,Investment,2373715178.835945,946
+Plateau,Jos South,Medicals,2403049992.445562,933
+Plateau,Jos South,Rent,2388354399.6213627,964
+Plateau,Jos South,Restaurant,2422859572.079247,961
+Plateau,Jos South,Salary,2426044562.659692,941
+Plateau,Jos South,Transportation,2294315090.426545,933
+Rivers,Eleme,Clothing,2327668987.2845545,940
+Rivers,Eleme,Debt Repayment,2438121118.27175,981
+Rivers,Eleme,Education,2320175001.4605246,928
+Rivers,Eleme,Entertainment,2264647073.7810516,933
+Rivers,Eleme,Food,2384565375.0566545,949
+Rivers,Eleme,Gift,2517264488.381167,979
+Rivers,Eleme,Healthcare,2417564484.214616,982
+Rivers,Eleme,Insurance,2354058162.852184,942
+Rivers,Eleme,Investment,2393400072.0328374,943
+Rivers,Eleme,Medicals,2324493919.563339,892
+Rivers,Eleme,Rent,2389076279.7707343,961
+Rivers,Eleme,Restaurant,2464459085.665207,990
+Rivers,Eleme,Salary,2178472804.540986,869
+Rivers,Eleme,Transportation,2358131778.3488216,933
+Rivers,Ikwerre,Clothing,2372189386.4646034,970
+Rivers,Ikwerre,Debt Repayment,2335298236.6266356,965
+Rivers,Ikwerre,Education,2515546937.5283833,995
+Rivers,Ikwerre,Entertainment,2362519183.1801734,961
+Rivers,Ikwerre,Food,2403827775.469844,955
+Rivers,Ikwerre,Gift,2485405826.743046,970
+Rivers,Ikwerre,Healthcare,2379330927.581846,947
+Rivers,Ikwerre,Insurance,2375850527.5670304,929
+Rivers,Ikwerre,Investment,2475002277.320551,975
+Rivers,Ikwerre,Medicals,2443774573.1316233,971
+Rivers,Ikwerre,Rent,2382727994.0818515,968
+Rivers,Ikwerre,Restaurant,2419197461.5748873,962
+Rivers,Ikwerre,Salary,2428444647.142671,964
+Rivers,Ikwerre,Transportation,2183164591.872536,906
+Rivers,Obio-Akpor,Clothing,2257654819.051811,903
+Rivers,Obio-Akpor,Debt Repayment,2293060614.0050178,911
+Rivers,Obio-Akpor,Education,2226514037.9829826,897
+Rivers,Obio-Akpor,Entertainment,2269676608.939524,913
+Rivers,Obio-Akpor,Food,2211231584.326114,891
+Rivers,Obio-Akpor,Gift,2355251794.0321155,929
+Rivers,Obio-Akpor,Healthcare,2342706522.7227674,916
+Rivers,Obio-Akpor,Insurance,2390787050.4648137,915
+Rivers,Obio-Akpor,Investment,2406579268.494985,978
+Rivers,Obio-Akpor,Medicals,2365753868.150438,939
+Rivers,Obio-Akpor,Rent,2353312143.683279,934
+Rivers,Obio-Akpor,Restaurant,2336722265.064396,930
+Rivers,Obio-Akpor,Salary,2336719807.0990663,901
+Rivers,Obio-Akpor,Transportation,2419985663.343787,938
+Rivers,Okrika,Clothing,2561734972.4456205,1001
+Rivers,Okrika,Debt Repayment,2387137792.2401824,973
+Rivers,Okrika,Education,2263691109.7492113,909
+Rivers,Okrika,Entertainment,2369891470.31484,953
+Rivers,Okrika,Food,2474308005.3845615,1005
+Rivers,Okrika,Gift,2386041662.0708632,939
+Rivers,Okrika,Healthcare,2292485719.39757,922
+Rivers,Okrika,Insurance,2296049454.018872,936
+Rivers,Okrika,Investment,2396980480.9197307,955
+Rivers,Okrika,Medicals,2342288196.348766,925
+Rivers,Okrika,Rent,2346608604.7075152,942
+Rivers,Okrika,Restaurant,2491656204.7295604,1003
+Rivers,Okrika,Salary,2432137528.499162,946
+Rivers,Okrika,Transportation,2441339110.0323844,987
+Rivers,Port Harcourt,Clothing,2346579197.790153,933
+Rivers,Port Harcourt,Debt Repayment,2389855193.011634,927
+Rivers,Port Harcourt,Education,2312549003.140171,948
+Rivers,Port Harcourt,Entertainment,2403386097.977396,957
+Rivers,Port Harcourt,Food,2557058586.9349337,1005
+Rivers,Port Harcourt,Gift,2384851851.4577355,913
+Rivers,Port Harcourt,Healthcare,2392889833.1894007,940
+Rivers,Port Harcourt,Insurance,2404120409.8425756,967
+Rivers,Port Harcourt,Investment,2366361742.17944,964
+Rivers,Port Harcourt,Medicals,2390265407.9204874,924
+Rivers,Port Harcourt,Rent,2258294888.572059,914
+Rivers,Port Harcourt,Restaurant,2268988743.4934235,909
+Rivers,Port Harcourt,Salary,2334110137.4358387,943
+Rivers,Port Harcourt,Transportation,2410473220.882539,958
