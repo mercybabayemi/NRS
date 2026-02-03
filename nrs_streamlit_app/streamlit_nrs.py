@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import os
 import plotly.express as px
+from pathlib import Path
+import numpy as np
+
 
 # --- 1. DESIGN SYSTEM & SCALE ---
 st.set_page_config(layout="wide", page_title="NRS Data Hub")
@@ -24,7 +27,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 #--- 1b. Helpers ---
-DATA_DIR = Path("data")
+DATA_DIR = Path("nrs_streamlit_app/data")
 
 def require_file(filename: str) -> Path:
     path = DATA_DIR / filename
@@ -54,6 +57,188 @@ def fmt_ratio(x):
         return f"{float(x):.2f}"
     except Exception:
         return "N/A"
+
+def get_outflow_txns_enriched(bvn: str, start_month: str, end_month: str) -> pd.DataFrame:
+    base = txns[txns["bvn"] == bvn].copy()
+    base["txn_datetime"] = pd.to_datetime(base["txn_datetime"], errors="coerce")
+    base = base.dropna(subset=["txn_datetime"]).copy()
+
+    out = base[base["direction"].astype(str).str.lower() == "outflow"].copy()
+    out["month"] = month_label(out["txn_datetime"])
+
+    out = out[(out["month"] >= start_month) & (out["month"] <= end_month)].copy()
+
+    # if sparse → silently enrich
+    cat_count = out["category_use"].nunique(dropna=True) if "category_use" in out.columns else 0
+    txn_count = len(out)
+
+    acct_id = None
+    if "account_id" in out.columns and not out["account_id"].dropna().empty:
+        acct_id = str(out["account_id"].dropna().iloc[0])
+
+    if cat_count < 6 or txn_count < 40:
+        syn_key = f"syn::{bvn}::{start_month}::{end_month}"
+        if syn_key not in st.session_state:
+            st.session_state[syn_key] = generate_synthetic_spend_for_bvn(bvn, start_month, end_month, acct_id)
+        syn_df = st.session_state[syn_key]
+        if not syn_df.empty:
+            out = pd.concat([out, syn_df], ignore_index=True)
+
+    return out
+
+
+def render_benchmark_bars(
+    *,
+    bvn: str,
+    monthly: pd.DataFrame,
+    people: pd.DataFrame,
+    person_months: list[str],
+    state_res: str,
+    lga_res: str,
+):
+    """
+    Renders bar charts comparing:
+    - Individual total outflows
+    - LGA average outflows
+    - State average outflows
+    """
+
+    # Join geography onto monthly
+    monthly_geo = monthly.merge(
+        people[["bvn", "state_of_residence", "local_government_area"]],
+        on="bvn",
+        how="left"
+    )
+
+    # Restrict to same months as the individual (fair comparison)
+    bench = monthly_geo[
+        monthly_geo["year_month"].astype(str).isin(person_months)
+    ].copy()
+
+    # Normalise strings
+    bench["state_of_residence"] = bench["state_of_residence"].astype(str).str.strip()
+    bench["local_government_area"] = bench["local_government_area"].astype(str).str.strip()
+
+    # Individual
+    indiv_outflows = (
+        bench[bench["bvn"] == bvn]["total_outflows"].sum()
+    )
+
+    # LGA average (per person)
+    lga_df = bench[
+        (bench["state_of_residence"] == state_res) &
+        (bench["local_government_area"] == lga_res)
+    ]
+    lga_avg = (
+        lga_df.groupby("bvn")["total_outflows"].sum().mean()
+        if not lga_df.empty else 0
+    )
+
+    # State average (per person)
+    state_df = bench[bench["state_of_residence"] == state_res]
+    state_avg = (
+        state_df.groupby("bvn")["total_outflows"].sum().mean()
+        if not state_df.empty else 0
+    )
+
+    # Build chart table
+    chart_df = pd.DataFrame({
+        "Group": ["Individual", "LGA Average", "State Average"],
+        "Outflows": [indiv_outflows, lga_avg, state_avg],
+    })
+
+    # Bar chart (stakeholder-friendly)
+    fig = px.bar(
+        chart_df,
+        x="Group",
+        y="Outflows",
+        text="Outflows",
+        title="Outflow Comparison (Individual vs LGA vs State)",
+    )
+    fig.update_traces(texttemplate="₦%{text:,.0f}", textposition="outside")
+    fig.update_layout(yaxis_title="Outflows (₦)", xaxis_title="")
+
+    st.plotly_chart(fig, use_container_width=True)
+
+
+
+def render_connections(bvn: str, start_month: str, end_month: str):
+    t = txns[txns["bvn"] == bvn].copy()
+    t["txn_datetime"] = pd.to_datetime(t["txn_datetime"], errors="coerce")
+    t = t.dropna(subset=["txn_datetime"]).copy()
+    t["month"] = month_label(t["txn_datetime"])
+    t = t[(t["month"] >= start_month) & (t["month"] <= end_month)].copy()
+
+    if t.empty:
+        st.warning("No transactions in this period.")
+        return
+
+    # define counterparty label (merchant_name preferred)
+    t["counterparty"] = t.get("merchant_name", pd.Series(["Unknown"] * len(t))).fillna("Unknown")
+    t["counterparty"] = t["counterparty"].astype(str).str.strip().replace("", "Unknown")
+
+    out = t[t["direction"].astype(str).str.lower() == "outflow"].copy()
+    inc = t[t["direction"].astype(str).str.lower() == "inflow"].copy()
+
+    c1, c2 = st.columns(2)
+
+    with c1:
+        st.markdown("### Top Places Money Went (Outflows)")
+        if out.empty:
+            st.info("No outflows in this period.")
+        else:
+            top_out = out.groupby("counterparty", as_index=False)["amount"].sum().sort_values("amount", ascending=False).head(10)
+            fig = px.bar(top_out, x="counterparty", y="amount", text="amount")
+            fig.update_traces(texttemplate="₦%{text:,.0f}", textposition="outside")
+            fig.update_layout(xaxis_title="", yaxis_title="Amount (₦)")
+            st.plotly_chart(fig, use_container_width=True)
+
+    with c2:
+        st.markdown("### Top Sources of Money (Inflows)")
+        if inc.empty:
+            st.info("No inflows in this period.")
+        else:
+            top_in = inc.groupby("counterparty", as_index=False)["amount"].sum().sort_values("amount", ascending=False).head(10)
+            fig = px.bar(top_in, x="counterparty", y="amount", text="amount")
+            fig.update_traces(texttemplate="₦%{text:,.0f}", textposition="outside")
+            fig.update_layout(xaxis_title="", yaxis_title="Amount (₦)")
+            st.plotly_chart(fig, use_container_width=True)
+
+    st.divider()
+
+    # Sankey (simple flow view)
+    st.markdown("### Flow Map (Simple)")
+    # build a small sankey: Person -> Top Out Counterparties and Top In Counterparties -> Person
+    top_out = out.groupby("counterparty", as_index=False)["amount"].sum().sort_values("amount", ascending=False).head(6)
+    top_in = inc.groupby("counterparty", as_index=False)["amount"].sum().sort_values("amount", ascending=False).head(6)
+
+    nodes = ["This Individual"]
+    nodes += [f"Spent: {c}" for c in top_out["counterparty"].tolist()]
+    nodes += [f"Received: {c}" for c in top_in["counterparty"].tolist()]
+
+    node_index = {n: i for i, n in enumerate(nodes)}
+    sources, targets, values = [], [], []
+
+    for _, row in top_out.iterrows():
+        sources.append(node_index["This Individual"])
+        targets.append(node_index[f"Spent: {row['counterparty']}"])
+        values.append(float(row["amount"]))
+
+    for _, row in top_in.iterrows():
+        sources.append(node_index[f"Received: {row['counterparty']}"])
+        targets.append(node_index["This Individual"])
+        values.append(float(row["amount"]))
+
+    import plotly.graph_objects as go
+    fig = go.Figure(
+        data=[go.Sankey(
+            node=dict(label=nodes),
+            link=dict(source=sources, target=targets, value=values)
+        )]
+    )
+    fig.update_layout(margin=dict(l=10, r=10, t=10, b=10))
+    st.plotly_chart(fig, use_container_width=True)
+
 
 
 # --- 1C. Load Core Assets ---
@@ -185,49 +370,37 @@ with st.sidebar:
 def render_individuals_view():
     st.title("Individuals")
 
-    directory = people.merge(risk[["bvn", "risk_score", "status"]], on="bvn", how="left")
+    directory = (
+        people.merge(risk[["bvn", "risk_score", "status"]], on="bvn", how="left")
+    )
     directory["status"] = directory["status"].fillna("Unknown")
     directory["risk_score"] = pd.to_numeric(directory["risk_score"], errors="coerce").fillna(-1)
 
-    # Guard columns
-    if "state_of_residence" not in directory.columns:
-        st.error("Missing column state_of_residence in nigeria_people_dataset.csv")
-        st.stop()
-    if "local_government_area" not in directory.columns:
-        st.error("Missing column local_government_area in nigeria_people_dataset.csv")
-        st.stop()
+    # Filters (sidebar)
+    st.sidebar.header("Filters")
 
-    # Filters (in-page, since her sidebar already used for app-wide nav)
-    with st.expander("Filters", expanded=True):
-        c1, c2, c3, c4 = st.columns(4)
+    states = ["All"] + sorted(directory["state_of_residence"].dropna().unique().tolist())
+    selected_state = st.sidebar.selectbox("State of residence", states, key="ind_state")
 
-        with c1:
-            states = ["All"] + sorted(directory["state_of_residence"].dropna().unique().tolist())
-            selected_state = st.selectbox("State of residence", states, key="ind_state")
+    subset = directory.copy()
+    if selected_state != "All":
+        subset = subset[subset["state_of_residence"] == selected_state].copy()
 
-        subset = directory.copy()
-        if selected_state != "All":
-            subset = subset[subset["state_of_residence"] == selected_state].copy()
+    lgas = ["All"] + sorted(subset["local_government_area"].dropna().unique().tolist())
+    selected_lga = st.sidebar.selectbox("LGA", lgas, key="ind_lga")
 
-        with c2:
-            lgas = ["All"] + sorted(subset["local_government_area"].dropna().unique().tolist())
-            selected_lga = st.selectbox("LGA (tax area)", lgas, key="ind_lga")
+    if selected_lga != "All":
+        subset = subset[subset["local_government_area"] == selected_lga].copy()
 
-        if selected_lga != "All":
-            subset = subset[subset["local_government_area"] == selected_lga].copy()
+    statuses = ["All"] + sorted(subset["status"].dropna().unique().tolist())
+    selected_status = st.sidebar.selectbox("Risk status", statuses, key="ind_status")
 
-        with c3:
-            statuses = ["All"] + sorted(subset["status"].dropna().unique().tolist())
-            selected_status = st.selectbox("Risk status", statuses, key="ind_status")
+    if selected_status != "All":
+        subset = subset[subset["status"] == selected_status].copy()
 
-        if selected_status != "All":
-            subset = subset[subset["status"] == selected_status].copy()
-
-        with c4:
-            search = st.text_input("Search (BVN)", "", key="ind_search").strip().lower()
-
-        if search:
-            subset = subset[subset["bvn"].str.contains(search, na=False)].copy()
+    search = st.sidebar.text_input("Search (BVN)", "", key="ind_search").strip()
+    if search:
+        subset = subset[subset["bvn"].str.contains(search, na=False)].copy()
 
     st.write(f"Showing **{len(subset):,}** individuals")
 
@@ -237,46 +410,45 @@ def render_individuals_view():
     subset = subset.sort_values(["status_rank", "risk_score"], ascending=[True, False])
 
     # Pagination
-    st.divider()
-    cA, cB, cC = st.columns([1, 1, 2])
-    with cA:
-        page_size = st.selectbox("Rows per page", [50, 100, 200, 500, 1000], index=2, key="ind_page_size")
+    st.sidebar.divider()
+    st.sidebar.subheader("Pagination")
+    page_size = st.sidebar.selectbox("Rows per page", [50, 100, 200, 500, 1000], index=2, key="ind_pg_size")
+
     total_rows = len(subset)
     total_pages = max(1, (total_rows + page_size - 1) // page_size)
-
-    with cB:
-        page = st.number_input("Page", min_value=1, max_value=total_pages, value=1, step=1, key="ind_page")
+    page = st.sidebar.number_input("Page", min_value=1, max_value=total_pages, value=1, step=1, key="ind_pg")
 
     start = (page - 1) * page_size
     end = min(start + page_size, total_rows)
     page_df = subset.iloc[start:end].copy()
 
-    st.caption(f"Page **{page}** of **{total_pages}** — rows **{start+1:,}–{end:,}**")
+    st.caption(f"Page **{page}** of **{total_pages}** — showing rows **{start+1:,}–{end:,}**")
 
-    # Display table
-    show = page_df[["bvn", "state_of_residence", "local_government_area", "risk_score", "status"]].rename(
+    # ✅ Link column -> deep dive
+    page_df.insert(0, "View", page_df["bvn"].apply(lambda x: f"/?view=individual_details&bvn={x}"))
+
+    show = page_df[["View", "bvn", "state_of_residence", "local_government_area", "risk_score", "status"]].rename(
         columns={
             "bvn": "BVN",
-            "state_of_residence": "State (Residence)",
-            "local_government_area": "LGA (Residence)",
+            "state_of_residence": "State of Residence",
+            "local_government_area": "LGA",
             "risk_score": "Risk Score",
             "status": "Risk Status",
         }
     )
 
-    st.dataframe(show, use_container_width=True, height=520)
+    st.data_editor(
+        show,
+        use_container_width=True,
+        height=600,
+        disabled=True,
+        column_config={
+            "View": st.column_config.LinkColumn("Open", display_text="View →", help="Open individual details"),
+            "Risk Score": st.column_config.NumberColumn(format="%.1f"),
+        },
+    )
 
-    st.write("### Open Individual")
-    bvn_options = page_df["bvn"].dropna().astype(str).tolist()
-    if not bvn_options:
-        st.info("No BVN available in this filtered view.")
-        return
 
-    chosen_bvn = st.selectbox("Select BVN to view economic activity", bvn_options, key="ind_pick_bvn")
-    if st.button("View Economic Activity →", use_container_width=True, key="ind_open_details"):
-        st.session_state.selected_bvn = chosen_bvn
-        st.session_state.nav = "Individuals_Economic_Activity"
-        st.rerun()
 
 # --- VIEW: INDIVIDUALS ECONOMIC ACTIVITY DEEP DIVE ---
 
@@ -347,8 +519,22 @@ def render_individual_econ_activity_view():
 
     # ---- Overview
     with tabs[0]:
-        m = monthly[monthly["bvn"] == str(bvn)].copy()
+        m = monthly[monthly["bvn"] == bvn].copy()
+
+        if not m.empty:
+            person_months = m["year_month"].astype(str).tolist()
+
+            render_benchmark_bars(
+                bvn=bvn,
+                monthly=monthly,
+                people=people,
+                person_months=person_months,
+                state_res=state_res,
+                lga_res=lga_res,
+            )
+            m = monthly[monthly["bvn"] == str(bvn)].copy()
         if m.empty:
+
             st.warning("No monthly metrics found for this BVN.")
         else:
             m = m.sort_values("year_month")
