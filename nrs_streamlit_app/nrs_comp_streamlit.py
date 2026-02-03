@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import json
+import numpy as np
 import os
 
 
@@ -397,161 +398,332 @@ if st.session_state.nav == "Dashboard":
                              color_continuous_scale="Reds")
             st.plotly_chart(fig_occ, use_container_width=True)
 
+
 # --- VIEW: INDUSTRIES ---
 elif st.session_state.nav == "Industries":
-    if st.session_state.selected_company is None:
+
+    # If no specific company is selected, show the main industries table
+    if not st.session_state.selected_company:
         view_header(
             "Industries",
             "Corporate tax behavior and sector insights"
         )
 
-        industry_display_table = filtered_comp
-
-        st.dataframe(
-            filtered_comp,
-            use_container_width=True
-        )
-        m1, m2, m3, m4 = st.columns(4)
-        # with m1:
-        #     draw_metric("Declared income", "₦122B", "20%")
-        # with m2:
-        #     draw_metric("Estimated income", "₦470B", "40%")
-        # with m3:
-        #     draw_metric("Income gap", "₦348B", "10%", is_up=False)
-        # with m4:
-        #     draw_metric("Potential tax revenue", "₦592B", "20%")
-
-
-
-        st.markdown("### Industries <span style='color:grey; font-size:14px'></span>", unsafe_allow_html=True)
-        st.write("---")
+        # --- Filters / Search ---
         c1, c2, c3 = st.columns([2, 2, 1])
         with c1:
-            st.text_input("Search", placeholder="Search by name or TIN")
+            search_val = st.text_input("Search", placeholder="Search by name or TIN", key="industry_search")
         with c2:
-            state_list.insert(0,"All States")
-            st.selectbox("State", state_list)
+            states_options = ["All States"] + sorted(filtered_comp['state'].dropna().unique())
+            selected_state = st.selectbox("State", states_options, key="industry_state_filter")
 
-        df_indus = pd.DataFrame({
-            "Name": ["Piggyvest", "MTN", "Zenith", "Guaranty Bank", "Glovo", "FBN"],
-            "TIN": ["*****7890-0001", "*****4546-0003", "*****8757-0002", "*****8823-0006", "*****9981-0001",
-                    "*****9754-0007"],
-            "Tax period": ["Q1, 2024", "Q2, 2024", "Q3, 2024", "Q4, 2024", "Q1, 2024", "Q1, 2024"],
-            "Compliance": ["70%", "60%", "90%", "20%", "40%", "60%"],
-            "Type": ["Plc", "Limited", "NGO", "Plc", "Plc", "Plc"]
-        })
+        # --- Apply filters dynamically ---
+        df_display = filtered_comp.copy()
+        if search_val:
+            df_display = df_display[df_display['name'].str.lower().str.contains(search_val.lower(), na=False)]
+        if selected_state != "All States":
+            df_display = df_display[df_display['state'] == selected_state]
 
-        for idx, row in df_indus.iterrows():
-            cols = st.columns([2, 2, 1, 1, 1, 1])
-            cols[0].write(row['Name'])
-            cols[1].write(row['TIN'])
-            cols[2].write(row['Tax period'])
-            cols[3].write(row['Compliance'])
-            cols[4].write(row['Type'])
-            if cols[5].button("View", key=row['Name']):
-                st.session_state.selected_company = row['Name']
-                st.rerun()
+        # --- Display each company dynamically ---
+        for idx, row in df_display.iterrows():
+            cols = st.columns([2, 2, 2, 1, 1, 1])
+            with cols[0]:
+                st.write(row['name'])
+            with cols[1]:
+                st.write(row['tin'])
+            with cols[2]:
+                st.write(f"Q{np.random.randint(1,5)}, {np.random.randint(2022,2026)}")  # Optional dynamic tax period
+            with cols[3]:
+                compliance = row.get('cit_due', 0) / row.get('turnover', 1) * 100  # Example metric
+                st.write(f"{compliance:.0f}%")
+            with cols[4]:
+                st.write(row.get('entity_type', 'N/A'))
+            with cols[5]:
+                if st.button("View", key=f"view_ind_{idx}"):
+                    st.session_state.selected_company = row['company_id']
+                    st.rerun()
 
+    # --- Single company view ---
     else:
-        # --- COMPANY DETAIL VIEW (NESTED) ---
+        # --- COMPANY DETAIL VIEW ---
         if st.button("← Back"):
             st.session_state.selected_company = None
             st.rerun()
 
+        # Fetch the selected company row dynamically
+        comp_row = filtered_comp[filtered_comp['company_id'] == st.session_state.selected_company].iloc[0]
+
+        # --- Company Banner ---
         st.markdown('<div class="company-banner"></div>', unsafe_allow_html=True)
         col_header, col_info = st.columns([1, 4])
         with col_header:
-            st.image("https://ui-avatars.com/api/?name=P&background=0047FF&color=fff", width=80)
+            st.image(
+                f"https://ui-avatars.com/api/?name={comp_row['name'].replace(' ', '+')}&background=0047FF&color=fff",
+                width=80)
         with col_info:
-            st.subheader(st.session_state.selected_company)
-            st.caption("TIN: *****45565 | info@piggyvest.com")
+            st.subheader(comp_row['name'])
+            st.caption(f"TIN: {comp_row['tin']} | {comp_row.get('email', 'info@example.com')}")
 
-        # Horizontal Stats Bar from Image
+        # --- Horizontal Stats Bar ---
         st.markdown(f"""
             <div style="background: #F9FAFB; padding: 15px; border-radius: 8px; border: 1px solid {HEX_BORDER}; margin: 20px 0;">
                 <div style="display: flex; justify-content: space-between; font-size: 12px;">
-                    <div><span style="color:grey">RC</span><br><b>****567891</b></div>
-                    <div><span style="color:grey">No of directors</span><br><b>4</b></div>
-                    <div><span style="color:grey">Industry</span><br><b>Technology</b></div>
-                    <div><span style="color:grey">Type</span><br><b>Plc</b></div>
-                    <div><span style="color:grey">Employees</span><br><b>120</b></div>
-                    <div><span style="color:grey">Customers base</span><br><b>50M</b></div>
-                    <div><span style="color:grey">Location</span><br><b>🇳🇬 Lagos, Nigeria</b></div>
+                    <div><span style="color:grey">RC</span><br><b>{comp_row.get('rc_number', '****567891')}</b></div>
+                    <div><span style="color:grey">No of directors</span><br><b>{comp_row.get('num_directors', 0)}</b></div>
+                    <div><span style="color:grey">Industry</span><br><b>{comp_row.get('industry_sector', 'N/A')}</b></div>
+                    <div><span style="color:grey">Type</span><br><b>{comp_row.get('entity_type', 'N/A')}</b></div>
+                    <div><span style="color:grey">Employees</span><br><b>{comp_row.get('staff_strength', 0)}</b></div>
+                    <div><span style="color:grey">Customers base</span><br><b>{comp_row.get('customer_base', 'N/A')}</b></div>
+                    <div><span style="color:grey">Location</span><br><b>🇳🇬 {comp_row.get('state', '')} {comp_row.get('lga', '')}</b></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
 
-        # Tab Navigation
+        # --- Tab Navigation ---
         tab_nav = st.radio("View", ["Overview", "Inflows", "Outflows", "Directors", "Tax payment history", "Employees",
                                     "Customers"],
                            horizontal=True, label_visibility="collapsed")
 
         main_col, side_col = st.columns([2.5, 1])
 
+        # --- Main Column Content ---
         with main_col:
             if tab_nav == "Overview":
                 st.markdown("### Overview")
                 st.caption("An overview of tax payer details")
+
+                # Dynamic Stats Cards
+                est_income = comp_row.get('estimated_income', 0)
+                declared_income = comp_row.get('declared_income', 0)
+                net_diff = est_income - declared_income
+                est_tax_gap = comp_row.get('estimated_tax_gap', 0)
+
                 ov1, ov2, ov3, ov4 = st.columns(4)
                 ov1.markdown(
-                    '<div class="ov-card" style="background:#FDF2FF">Estimated income<br><h3>₦64,000,000.00</h3></div>',
+                    f'<div class="ov-card" style="background:#FDF2FF">Estimated income<br><h3>₦{est_income:,.2f}</h3></div>',
                     unsafe_allow_html=True)
                 ov2.markdown(
-                    '<div class="ov-card" style="background:#F0FDF4">Declared income<br><h3>₦14,000,000.00</h3></div>',
+                    f'<div class="ov-card" style="background:#F0FDF4">Declared income<br><h3>₦{declared_income:,.2f}</h3></div>',
                     unsafe_allow_html=True)
                 ov3.markdown(
-                    '<div class="ov-card" style="background:#EFF6FF">Net difference<br><h3>₦50,000,000.00</h3></div>',
+                    f'<div class="ov-card" style="background:#EFF6FF">Net difference<br><h3>₦{net_diff:,.2f}</h3></div>',
                     unsafe_allow_html=True)
                 ov4.markdown(
-                    '<div class="ov-card" style="background:#FFF1F2">Estimated tax gap<br><h3>₦24,000,00.60</h3></div>',
+                    f'<div class="ov-card" style="background:#FFF1F2">Estimated tax gap<br><h3>₦{est_tax_gap:,.2f}</h3></div>',
                     unsafe_allow_html=True)
 
                 st.markdown("#### AI Generated description")
                 st.info(
-                    f"{st.session_state.selected_company} is a privately held Nigerian financial technology company.")
+                    f"{comp_row['name']} is a {comp_row.get('entity_type', 'private')} company operating in {comp_row.get('industry_sector', 'N/A')} sector in Nigeria.")
 
             elif tab_nav == "Inflows":
                 st.markdown("### Inflows")
                 st.caption("An overview of transaction inflows")
-                st.segmented_control("Filter", ["All", "Operations", "Investments", "Finance", "Donations"],
-                                     default="All", label_visibility="collapsed")
+                inflow_filter = st.selectbox("Filter", ["All", "Operations", "Investments", "Finance", "Donations"],
+                                             index=0, label_visibility="collapsed")
 
-                # Transaction Data for Inflows
-                inflow_data = pd.DataFrame({
-                    "Date": ["22 Jan 2022", "22 Jan 2023", "23 Jan 2024"],
-                    "Amount": ["₦30,217,739.23", "₦4,617,235.10", "₦25,442,163.99"],
-                    "From": ["Bokku Mart", "Chioma Rita", "Ardova plc"],
-                    "Method": ["Transfer", "Transfer", "POS"]
-                })
-                st.dataframe(inflow_data, use_container_width=True, hide_index=True)
+                inflow_data = taxes[(taxes['company_id'] == comp_row['company_id']) & (taxes['type'] == 'inflow')]
+                if inflow_filter != "All":
+                    inflow_data = inflow_data[inflow_data['category'] == inflow_filter]
+
+                if not inflow_data.empty:
+                    st.dataframe(
+                        inflow_data[['date', 'amount', 'source', 'method']].rename(columns={'source': 'From'}),
+                        use_container_width=True, hide_index=True
+                    )
+                else:
+                    st.info("No inflow data available.")
 
             elif tab_nav == "Outflows":
                 st.markdown("### Outflows")
                 st.caption("An overview of transaction outflows")
-                st.segmented_control("Filter", ["All", "Operations", "Investments", "Finance", "Donations"],
-                                     default="All", label_visibility="collapsed")
+                outflow_filter = st.selectbox("Filter", ["All", "Operations", "Investments", "Finance", "Donations"],
+                                              index=0, label_visibility="collapsed")
 
-                # Transaction Data for Outflows
-                outflow_data = pd.DataFrame({
-                    "Date": ["22 Jan 2022", "22 Jan 2023"],
-                    "Amount": ["₦348,200.00", "₦18,482,800.00"],
-                    "To": ["Bokku Mart", "Chioma Rita"],
-                    "Method": ["Transfer", "Transfer"]
-                })
-                st.dataframe(outflow_data, use_container_width=True, hide_index=True)
+                outflow_data = taxes[(taxes['company_id'] == comp_row['company_id']) & (taxes['type'] == 'outflow')]
+                if outflow_filter != "All":
+                    outflow_data = outflow_data[outflow_data['category'] == outflow_filter]
 
+                if not outflow_data.empty:
+                    st.dataframe(
+                        outflow_data[['date', 'amount', 'destination', 'method']].rename(columns={'destination': 'To'}),
+                        use_container_width=True, hide_index=True
+                    )
+                else:
+                    st.info("No outflow data available.")
+
+        # --- Side Column: Tax Computation ---
         with side_col:
             st.markdown("### Tax computation")
             st.caption("A breakdown of estimated payable tax")
+
+            declared_taxable = comp_row.get('declared_taxable_income', 0)
+            predicted_taxable = comp_row.get('predicted_taxable_income', 0)
+            predicted_payable_tax = comp_row.get('predicted_payable_tax', 0)
+
             st.markdown(f"""
                 <div class="tax-box">
-                    <div class="tax-row"><span>Declared taxable income</span><span class="tax-val">₦2,000.00</span></div>
-                    <div class="tax-row"><span>Predicted taxable income</span><span class="tax-val">₦200,000.00</span></div>
+                    <div class="tax-row"><span>Declared taxable income</span><span class="tax-val">₦{declared_taxable:,.2f}</span></div>
+                    <div class="tax-row"><span>Predicted taxable income</span><span class="tax-val">₦{predicted_taxable:,.2f}</span></div>
                     <hr style="border:0.5px solid {HEX_BORDER}">
-                    <div class="tax-row"><span>Predicted payable tax</span><span class="tax-gap">₦150,000.00</span></div>
+                    <div class="tax-row"><span>Predicted payable tax</span><span class="tax-gap">₦{predicted_payable_tax:,.2f}</span></div>
                 </div>
             """, unsafe_allow_html=True)
 
+# # --- VIEW: INDUSTRIES ---
+# elif st.session_state.nav == "Industries":
+#     if st.session_state.selected_company is None:
+#         view_header(
+#             "Industries",
+#             "Corporate tax behavior and sector insights"
+#         )
+#
+#         industry_display_table = filtered_comp
+#
+#         st.dataframe(
+#             filtered_comp,
+#             use_container_width=True
+#         )
+#         m1, m2, m3, m4 = st.columns(4)
+#         # with m1:
+#         #     draw_metric("Declared income", "₦122B", "20%")
+#         # with m2:
+#         #     draw_metric("Estimated income", "₦470B", "40%")
+#         # with m3:
+#         #     draw_metric("Income gap", "₦348B", "10%", is_up=False)
+#         # with m4:
+#         #     draw_metric("Potential tax revenue", "₦592B", "20%")
+#
+#
+#
+#         st.markdown("### Industries <span style='color:grey; font-size:14px'></span>", unsafe_allow_html=True)
+#         st.write("---")
+#         c1, c2, c3 = st.columns([2, 2, 1])
+#         with c1:
+#             st.text_input("Search", placeholder="Search by name or TIN")
+#         with c2:
+#             state_list.insert(0,"All States")
+#             st.selectbox("State", state_list)
+#
+#         df_indus = pd.DataFrame({
+#             "Name": ["Piggyvest", "MTN", "Zenith", "Guaranty Bank", "Glovo", "FBN"],
+#             "TIN": ["*****7890-0001", "*****4546-0003", "*****8757-0002", "*****8823-0006", "*****9981-0001",
+#                     "*****9754-0007"],
+#             "Tax period": ["Q1, 2024", "Q2, 2024", "Q3, 2024", "Q4, 2024", "Q1, 2024", "Q1, 2024"],
+#             "Compliance": ["70%", "60%", "90%", "20%", "40%", "60%"],
+#             "Type": ["Plc", "Limited", "NGO", "Plc", "Plc", "Plc"]
+#         })
+#
+#         for idx, row in df_indus.iterrows():
+#             cols = st.columns([2, 2, 1, 1, 1, 1])
+#             cols[0].write(row['Name'])
+#             cols[1].write(row['TIN'])
+#             cols[2].write(row['Tax period'])
+#             cols[3].write(row['Compliance'])
+#             cols[4].write(row['Type'])
+#             if cols[5].button("View", key=row['Name']):
+#                 st.session_state.selected_company = row['Name']
+#                 st.rerun()
+#
+#     else:
+#         # --- COMPANY DETAIL VIEW (NESTED) ---
+#         if st.button("← Back"):
+#             st.session_state.selected_company = None
+#             st.rerun()
+#
+#         st.markdown('<div class="company-banner"></div>', unsafe_allow_html=True)
+#         col_header, col_info = st.columns([1, 4])
+#         with col_header:
+#             st.image("https://ui-avatars.com/api/?name=P&background=0047FF&color=fff", width=80)
+#         with col_info:
+#             st.subheader(st.session_state.selected_company)
+#             st.caption("TIN: *****45565 | info@piggyvest.com")
+#
+#         # Horizontal Stats Bar from Image
+#         st.markdown(f"""
+#             <div style="background: #F9FAFB; padding: 15px; border-radius: 8px; border: 1px solid {HEX_BORDER}; margin: 20px 0;">
+#                 <div style="display: flex; justify-content: space-between; font-size: 12px;">
+#                     <div><span style="color:grey">RC</span><br><b>****567891</b></div>
+#                     <div><span style="color:grey">No of directors</span><br><b>4</b></div>
+#                     <div><span style="color:grey">Industry</span><br><b>Technology</b></div>
+#                     <div><span style="color:grey">Type</span><br><b>Plc</b></div>
+#                     <div><span style="color:grey">Employees</span><br><b>120</b></div>
+#                     <div><span style="color:grey">Customers base</span><br><b>50M</b></div>
+#                     <div><span style="color:grey">Location</span><br><b>🇳🇬 Lagos, Nigeria</b></div>
+#                 </div>
+#             </div>
+#         """, unsafe_allow_html=True)
+#
+#         # Tab Navigation
+#         tab_nav = st.radio("View", ["Overview", "Inflows", "Outflows", "Directors", "Tax payment history", "Employees",
+#                                     "Customers"],
+#                            horizontal=True, label_visibility="collapsed")
+#
+#         main_col, side_col = st.columns([2.5, 1])
+#
+#         with main_col:
+#             if tab_nav == "Overview":
+#                 st.markdown("### Overview")
+#                 st.caption("An overview of tax payer details")
+#                 ov1, ov2, ov3, ov4 = st.columns(4)
+#                 ov1.markdown(
+#                     '<div class="ov-card" style="background:#FDF2FF">Estimated income<br><h3>₦64,000,000.00</h3></div>',
+#                     unsafe_allow_html=True)
+#                 ov2.markdown(
+#                     '<div class="ov-card" style="background:#F0FDF4">Declared income<br><h3>₦14,000,000.00</h3></div>',
+#                     unsafe_allow_html=True)
+#                 ov3.markdown(
+#                     '<div class="ov-card" style="background:#EFF6FF">Net difference<br><h3>₦50,000,000.00</h3></div>',
+#                     unsafe_allow_html=True)
+#                 ov4.markdown(
+#                     '<div class="ov-card" style="background:#FFF1F2">Estimated tax gap<br><h3>₦24,000,00.60</h3></div>',
+#                     unsafe_allow_html=True)
+#
+#                 st.markdown("#### AI Generated description")
+#                 st.info(
+#                     f"{st.session_state.selected_company} is a privately held Nigerian financial technology company.")
+#
+#             elif tab_nav == "Inflows":
+#                 st.markdown("### Inflows")
+#                 st.caption("An overview of transaction inflows")
+#                 st.segmented_control("Filter", ["All", "Operations", "Investments", "Finance", "Donations"],
+#                                      default="All", label_visibility="collapsed")
+#
+#                 # Transaction Data for Inflows
+#                 inflow_data = pd.DataFrame({
+#                     "Date": ["22 Jan 2022", "22 Jan 2023", "23 Jan 2024"],
+#                     "Amount": ["₦30,217,739.23", "₦4,617,235.10", "₦25,442,163.99"],
+#                     "From": ["Bokku Mart", "Chioma Rita", "Ardova plc"],
+#                     "Method": ["Transfer", "Transfer", "POS"]
+#                 })
+#                 st.dataframe(inflow_data, use_container_width=True, hide_index=True)
+#
+#             elif tab_nav == "Outflows":
+#                 st.markdown("### Outflows")
+#                 st.caption("An overview of transaction outflows")
+#                 st.segmented_control("Filter", ["All", "Operations", "Investments", "Finance", "Donations"],
+#                                      default="All", label_visibility="collapsed")
+#
+#                 # Transaction Data for Outflows
+#                 outflow_data = pd.DataFrame({
+#                     "Date": ["22 Jan 2022", "22 Jan 2023"],
+#                     "Amount": ["₦348,200.00", "₦18,482,800.00"],
+#                     "To": ["Bokku Mart", "Chioma Rita"],
+#                     "Method": ["Transfer", "Transfer"]
+#                 })
+#                 st.dataframe(outflow_data, use_container_width=True, hide_index=True)
+#
+#         with side_col:
+#             st.markdown("### Tax computation")
+#             st.caption("A breakdown of estimated payable tax")
+#             st.markdown(f"""
+#                 <div class="tax-box">
+#                     <div class="tax-row"><span>Declared taxable income</span><span class="tax-val">₦2,000.00</span></div>
+#                     <div class="tax-row"><span>Predicted taxable income</span><span class="tax-val">₦200,000.00</span></div>
+#                     <hr style="border:0.5px solid {HEX_BORDER}">
+#                     <div class="tax-row"><span>Predicted payable tax</span><span class="tax-gap">₦150,000.00</span></div>
+#                 </div>
+#             """, unsafe_allow_html=True)
 
 
 elif st.session_state.nav == "General Overview":
