@@ -69,6 +69,16 @@ st.markdown(f"""
         border-radius: 12px;
         border: 1px solid {HEX_BORDER};
     }}
+    
+    .stButton button {{
+        background: #111827;  /* HEX_PRIMARY */
+        color: white;
+    }}
+
+    .stButton button:hover {{
+        background: #111827;  /* stays same on hover */
+    }}
+
 
     .m-label {{ color: {HEX_GREY_TEXT}; font-size: 14px; margin-bottom: 8px; }}
     .m-value {{ color: {HEX_PRIMARY}; font-size: 32px; font-weight: 700; }}
@@ -169,7 +179,7 @@ GEO_ZONES = {
 
 # Create a flat map for easy pandas lookup
 ZONE_LOOKUP = {state: zone for zone, states in GEO_ZONES.items() for state in states}
-states = df
+state_list = [state for states in GEO_ZONES.values() for state in states]
 
 # --- 4. DATA PROCESSING ---
 # Filter data first
@@ -279,8 +289,7 @@ if st.session_state.nav == "Dashboard":
                 )
                 state_dates = st.multiselect(
                     label="",
-                    options=yoa_options,
-                    default=default_yoa
+                    options=yoa_options
                 )
 
             with f1:
@@ -290,8 +299,7 @@ if st.session_state.nav == "Dashboard":
                 )
                 state_filter = st.multiselect(
                     label="",
-                    options=state_options,
-                    default=default_state
+                    options=state_options
                 )
 
     if st.session_state.selected_state:
@@ -392,7 +400,17 @@ if st.session_state.nav == "Dashboard":
 # --- VIEW: INDUSTRIES ---
 elif st.session_state.nav == "Industries":
     if st.session_state.selected_company is None:
-        st.title("Industries")
+        view_header(
+            "Industries",
+            "Corporate tax behavior and sector insights"
+        )
+
+        industry_display_table = filtered_comp
+
+        st.dataframe(
+            filtered_comp,
+            use_container_width=True
+        )
         m1, m2, m3, m4 = st.columns(4)
         # with m1:
         #     draw_metric("Declared income", "₦122B", "20%")
@@ -403,13 +421,16 @@ elif st.session_state.nav == "Industries":
         # with m4:
         #     draw_metric("Potential tax revenue", "₦592B", "20%")
 
-        st.markdown("### Industries <span style='color:grey; font-size:14px'>240,000</span>", unsafe_allow_html=True)
+
+
+        st.markdown("### Industries <span style='color:grey; font-size:14px'></span>", unsafe_allow_html=True)
         st.write("---")
         c1, c2, c3 = st.columns([2, 2, 1])
         with c1:
             st.text_input("Search", placeholder="Search by name or TIN")
         with c2:
-            st.selectbox("State", )
+            state_list.insert(0,"All States")
+            st.selectbox("State", state_list)
 
         df_indus = pd.DataFrame({
             "Name": ["Piggyvest", "MTN", "Zenith", "Guaranty Bank", "Glovo", "FBN"],
@@ -419,7 +440,6 @@ elif st.session_state.nav == "Industries":
             "Compliance": ["70%", "60%", "90%", "20%", "40%", "60%"],
             "Type": ["Plc", "Limited", "NGO", "Plc", "Plc", "Plc"]
         })
-
 
         for idx, row in df_indus.iterrows():
             cols = st.columns([2, 2, 1, 1, 1, 1])
@@ -532,17 +552,7 @@ elif st.session_state.nav == "Industries":
                 </div>
             """, unsafe_allow_html=True)
 
-        view_header(
-            "Industries & Companies",
-            "Corporate tax behavior and sector insights"
-        )
 
-        st.metric("Companies", filtered_comp.shape[0])
-
-        st.dataframe(
-            filtered_comp.head(100),
-            use_container_width=True
-        )
 
 elif st.session_state.nav == "General Overview":
     st.title("National Overview")
@@ -570,30 +580,6 @@ elif st.session_state.nav == "Taxpayer":
     st.markdown("#### **Taxpayer Sample Data (Top 100)**")
     st.dataframe(filtered_ind.head(100), use_container_width=True)
 
-
-# --- VIEW: INDIVIDUALS ---
-elif st.session_state.nav == "Individuals":
-
-    view_header(
-        "Individuals",
-        "Filtered view of registered individual taxpayers"
-    )
-
-    st.metric("Individuals Count who has paid = ", filtered_ind.shape[0])
-
-    st.dataframe(
-        filtered_ind.head(100),
-        use_container_width=True
-    )
-
-
-    st.markdown("### Individuals <span style='color:grey; font-size:14px'>120,000</span>", unsafe_allow_html=True)
-    df_ind = pd.DataFrame({
-        "TIN": ["13456785", "13456789", "13456789", "13456789"],
-        "Tax station": ["Agege", "Mushin1", "Ojo", "Epe"],
-        "State of residence": ["Kano", "Kebbi", "Kastina", "Kogi"],
-        "Status": ["Flagged", "Compliant", "Flagged", "Flagged"]
-    })
 
 elif st.session_state.nav == "Compliance & scoring":
     view_header(
@@ -718,6 +704,19 @@ elif st.session_state.nav == "Suspicious activities":
     )
 
     st.metric("Total Alerts", total_alerts)
+
+    st.dataframe(
+        filtered_ind.head(100),
+        use_container_width=True
+    )
+
+# --- VIEW: INDIVIDUALS ---
+elif st.session_state.nav == "Individuals":
+
+    view_header(
+        "Individuals",
+        "Filtered view of registered individual taxpayers"
+    )
 
     st.dataframe(
         filtered_ind.head(100),
