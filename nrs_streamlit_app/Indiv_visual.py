@@ -6,17 +6,17 @@ import plotly.express as px
 # ---------------- LOAD DATA ----------------
 @st.cache_data
 def load_data():
-    individuals = pd.read_csv("generate_data/output/individuals.csv")
-    companies = pd.read_csv("generate_data/output/companies.csv")
-    taxes = pd.read_csv("generate_data/output/taxes.csv")
-    aml_flags_individual = pd.read_csv("generate_data/output/aml_flags.csv")
-    aml_flags_companies = pd.read_csv("generate_data/output/aml_flags_companies.csv")
-    spend_events = pd.read_csv("generate_data/output/spend_events.csv")
-    transactions = pd.read_csv("generate_data/output/transactions.csv")
-    banks = pd.read_csv("generate_data/output/banks_financial.csv")
-    assets = pd.read_csv("generate_data/output/assets.csv")
-    spend_aggregrates = pd.read_csv("generate_data/output/spend_aggregates.csv")
-    relationships = pd.read_csv("generate_data/output/relationships.csv")
+    individuals = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/individuals.csv")
+    companies = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/companies.csv")
+    taxes = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/taxes.csv")
+    aml_flags_individual = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/aml_flags.csv")
+    aml_flags_companies = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/aml_flags_companies.csv")
+    spend_events = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/spend_events.csv")
+    transactions = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/transactions.csv")
+    banks = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/banks_financial.csv")
+    assets = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/assets.csv")
+    spend_aggregrates = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/spend_aggregates.csv")
+    relationships = pd.read_csv("~/NRS/nrs_streamlit_app/generate_data/output/relationships.csv")
     return (individuals, companies, taxes, aml_flags_individual,
             aml_flags_companies, spend_events, transactions,
             banks, assets, spend_aggregrates, relationships)
