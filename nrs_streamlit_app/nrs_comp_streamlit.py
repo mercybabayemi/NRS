@@ -7,7 +7,8 @@ import numpy as np
 import os
 from pathlib import Path
 import numpy as np
-
+import random
+from pathlib import Path
 
 
 ## --- Load real data ---
@@ -104,12 +105,15 @@ st.markdown(f"""
 #--- 1b. Helpers ---
 DATA_DIR = Path("nrs_streamlit_app/data")
 
+
 def require_file(filename: str) -> Path:
-    path = DATA_DIR / filename
-    if not path.exists():
-        st.error(f"Missing file: {path}. Put **{filename}** inside your **data/** folder.")
+    p = Path(filename).expanduser()
+    if not p.is_absolute():
+        p = (DATA_DIR / filename).resolve()
+    if not p.exists():
+        st.error(f"Missing file: {p}")
         st.stop()
-    return path
+    return p
 
 def title_case_label(s: str) -> str:
     return str(s).replace("_", " ").strip().title()
@@ -172,58 +176,65 @@ def render_benchmark_bars(
     state_res: str,
     lga_res: str,
 ):
-    """
-    Renders bar charts comparing:
-    - Individual total outflows
-    - LGA average outflows
-    - State average outflows
-    """
+    # ---- safety: normalize column names (handles trailing spaces) ----
+    monthly = monthly.copy()
+    people = people.copy()
+    monthly.columns = monthly.columns.astype(str).str.strip()
+    people.columns = people.columns.astype(str).str.strip()
 
-    # Join geography onto monthly
+    needed_people_cols = ["bvn", "state_of_residence", "local_government_area"]
+    missing = [c for c in needed_people_cols if c not in people.columns]
+    if missing:
+        st.error(f"People dataset missing columns: {missing}. Found: {list(people.columns)}")
+        return
+
+    # ---- merge (avoid accidental suffix surprise) ----
     monthly_geo = monthly.merge(
-        people[["bvn", "state_of_residence", "local_government_area"]],
+        people[needed_people_cols],
         on="bvn",
-        how="left"
+        how="left",
+        suffixes=("", "_people"),
     )
+
+    # ---- resolve the actual column names after merge ----
+    # Prefer the non-suffixed version if it exists, otherwise take the people-suffixed version.
+    state_col = "state_of_residence" if "state_of_residence" in monthly_geo.columns else "state_of_residence_people"
+    lga_col = "local_government_area" if "local_government_area" in monthly_geo.columns else "local_government_area_people"
+
+    if state_col not in monthly_geo.columns or lga_col not in monthly_geo.columns:
+        st.error(
+            "Geography columns not found after merge. "
+            f"state_col={state_col} in cols? {state_col in monthly_geo.columns}, "
+            f"lga_col={lga_col} in cols? {lga_col in monthly_geo.columns}. "
+            f"Available cols: {list(monthly_geo.columns)}"
+        )
+        return
 
     # Restrict to same months as the individual (fair comparison)
-    bench = monthly_geo[
-        monthly_geo["year_month"].astype(str).isin(person_months)
-    ].copy()
+    bench = monthly_geo[monthly_geo["year_month"].astype(str).isin(person_months)].copy()
 
-    # Normalise strings
-    bench["state_of_residence"] = bench["state_of_residence"].astype(str).str.strip()
-    bench["local_government_area"] = bench["local_government_area"].astype(str).str.strip()
+    # Normalize strings (and normalize comparisons)
+    bench[state_col] = bench[state_col].astype(str).str.strip()
+    bench[lga_col] = bench[lga_col].astype(str).str.strip()
+    state_res = str(state_res).strip()
+    lga_res = str(lga_res).strip()
 
     # Individual
-    indiv_outflows = (
-        bench[bench["bvn"] == bvn]["total_outflows"].sum()
-    )
+    indiv_outflows = bench.loc[bench["bvn"] == bvn, "total_outflows"].sum()
 
     # LGA average (per person)
-    lga_df = bench[
-        (bench["state_of_residence"] == state_res) &
-        (bench["local_government_area"] == lga_res)
-    ]
-    lga_avg = (
-        lga_df.groupby("bvn")["total_outflows"].sum().mean()
-        if not lga_df.empty else 0
-    )
+    lga_df = bench[(bench[state_col] == state_res) & (bench[lga_col] == lga_res)]
+    lga_avg = lga_df.groupby("bvn")["total_outflows"].sum().mean() if not lga_df.empty else 0
 
     # State average (per person)
-    state_df = bench[bench["state_of_residence"] == state_res]
-    state_avg = (
-        state_df.groupby("bvn")["total_outflows"].sum().mean()
-        if not state_df.empty else 0
-    )
+    state_df = bench[bench[state_col] == state_res]
+    state_avg = state_df.groupby("bvn")["total_outflows"].sum().mean() if not state_df.empty else 0
 
-    # Build chart table
     chart_df = pd.DataFrame({
         "Group": ["Individual", "LGA Average", "State Average"],
         "Outflows": [indiv_outflows, lga_avg, state_avg],
     })
 
-    # Bar chart (stakeholder-friendly)
     fig = px.bar(
         chart_df,
         x="Group",
@@ -234,7 +245,9 @@ def render_benchmark_bars(
     fig.update_traces(texttemplate="₦%{text:,.0f}", textposition="outside")
     fig.update_layout(yaxis_title="Outflows (₦)", xaxis_title="")
 
-    st.plotly_chart(fig, use_container_width=True)
+    # Streamlit deprecation-safe:
+    st.plotly_chart(fig, width="stretch")
+
 
 
 def render_connections(bvn: str, start_month: str, end_month: str):
@@ -322,7 +335,6 @@ def load_people():
 @st.cache_data
 def load_demographics():
     return pd.read_csv(require_file("people_demographics_dataset.csv"), dtype={"bvn": str})
-
 @st.cache_data
 def load_risk_flags():
     df = pd.read_csv(require_file("risk_flags_dataset.csv"), dtype={"bvn": str})
@@ -375,9 +387,10 @@ def load_employment():
 @st.cache_data
 def load_employers():
     return pd.read_csv(require_file("employers_dataset.csv"), dtype={"employer_id": str})
+people_master = load_people()
+people = people_master
+# st.write("DEBUG: people loaded?", "people" in globals(), "rows:", len(people))
 
-
-people = load_people()
 demo = load_demographics()
 risk = load_risk_flags()
 accounts = load_accounts()
@@ -387,10 +400,131 @@ employment = load_employment()
 employers = load_employers()
 
 
+
+# -----------------------
+# Synthetic spend (quietly used for richness)
+# -----------------------
+ENRICH_CATEGORIES = [
+    "Food & Groceries", "Eating Out / Restaurants", "Airtime", "Internet / Data",
+    "Transportation", "Fueling", "Electricity", "Cable TV", "Healthcare",
+    "Shopping / E-commerce", "Entertainment", "Betting & Gaming",
+    "Outgoing Transfer", "POS Withdrawal", "Bank Fees & Charges",
+]
+
+AMOUNT_RANGES = {
+    "Food & Groceries": (800, 15000),
+    "Eating Out / Restaurants": (1500, 20000),
+    "Airtime": (200, 3000),
+    "Internet / Data": (500, 10000),
+    "Transportation": (300, 12000),
+    "Fueling": (2000, 40000),
+    "Electricity": (1000, 25000),
+    "Cable TV": (1500, 18000),
+    "Healthcare": (800, 30000),
+    "Shopping / E-commerce": (1500, 60000),
+    "Entertainment": (500, 20000),
+    "Betting & Gaming": (200, 25000),
+    "Outgoing Transfer": (2000, 120000),
+    "POS Withdrawal": (1000, 60000),
+    "Bank Fees & Charges": (50, 2500),
+}
+
+MERCHANTS = {
+    "Airtime": ["MTN VTU", "Airtel VTU", "Glo VTU", "9mobile VTU"],
+    "Internet / Data": ["MTN Data", "Airtel Data", "Glo Data", "9mobile Data", "Smile", "Spectranet", "Starlink"],
+    "Food & Groceries": ["Shoprite", "SPAR", "Local Market", "Justrite", "Everyday Supermarket"],
+    "Eating Out / Restaurants": ["KFC", "Chicken Republic", "Dominos", "Mr Biggs", "Local Bukka", "Cafe Neo"],
+    "Transportation": ["Uber", "Bolt", "Bus Fare", "Okada Fare", "Toll Gate"],
+    "Fueling": ["NNPC Station", "TotalEnergies", "Oando", "Mobil"],
+    "Electricity": ["IKEDC", "EKEDC", "JEDC", "AEDC"],
+    "Cable TV": ["DSTV", "GOtv", "StarTimes"],
+    "Healthcare": ["Pharmacy", "Clinic", "Hospital"],
+    "Shopping / E-commerce": ["Jumia", "Konga", "Mall Purchase", "Online Store"],
+    "Entertainment": ["Cinema", "Game Center", "Concert Tickets"],
+    "Betting & Gaming": ["Bet9ja", "SportyBet", "1xBet", "BetKing"],
+    "Outgoing Transfer": ["Transfer to Family", "Transfer to Vendor", "Transfer to Savings"],
+    "POS Withdrawal": ["POS Cash Agent", "POS Withdrawal"],
+    "Bank Fees & Charges": ["SMS Alert", "Maintenance Fee", "Stamp Duty", "Transfer Charge"],
+}
+CHANNELS = ["POS", "USSD", "Mobile App", "Bank Transfer", "ATM", "Card", "Web"]
+
+def _log_uniform(lo, hi):
+    lo = max(1.0, float(lo))
+    hi = max(lo + 1.0, float(hi))
+    return float(np.exp(np.random.uniform(np.log(lo), np.log(hi))))
+
+def _random_dt_between(start_ts: pd.Timestamp, end_ts: pd.Timestamp) -> pd.Timestamp:
+    delta = (end_ts - start_ts).total_seconds()
+    if delta <= 0:
+        return start_ts
+    r = np.random.randint(0, int(delta))
+    return start_ts + pd.Timedelta(seconds=int(r))
+
+def generate_synthetic_spend_for_bvn(bvn: str, start_month: str, end_month: str, account_id: str | None):
+    # stable seed per bvn+period so it doesn't jump around
+    seed = abs(hash((bvn, start_month, end_month))) % (2**32 - 1)
+    np.random.seed(seed)
+    random.seed(seed)
+
+    months = pd.period_range(start=start_month, end=end_month, freq="M")
+    if len(months) == 0:
+        return pd.DataFrame()
+
+    cats = ENRICH_CATEGORIES.copy()
+    random.shuffle(cats)
+    cats = cats[:10]
+
+    rows = []
+    for per in months:
+        month_start = per.to_timestamp()
+        month_end = (per + 1).to_timestamp()
+
+        weights = np.random.dirichlet([0.9] * len(cats))
+        n = int(np.clip(28 + np.random.randint(-7, 8), 18, 45))
+        chosen = np.random.choice(cats, size=n, p=weights, replace=True)
+
+        for i, cat in enumerate(chosen, start=1):
+            lo, hi = AMOUNT_RANGES.get(cat, (200, 20000))
+            amt = _log_uniform(lo, hi)
+            merchant = random.choice(MERCHANTS.get(cat, [cat]))
+            channel = random.choice(CHANNELS)
+            dt = _random_dt_between(month_start, month_end)
+
+            rows.append({
+                "transaction_id": f"SYN_UI_{bvn}_{str(per)}_{i:03d}",
+                "bvn": bvn,
+                "account_id": str(account_id) if account_id else f"ACC_{bvn}",
+                "txn_datetime": dt,
+                "direction": "outflow",
+                "amount": round(amt, 2),
+                "category_use": cat,
+                "merchant_name": merchant,
+                "narration": f"{cat} - {merchant}",
+                "channel": channel,
+                "_synthetic": True,  # internal only
+            })
+
+    return pd.DataFrame(rows)
+
 # --- 2. STATE MANAGEMENT ---
 for key, val in {"nav": "Dashboard", "selected_state": None, "time_filter": "all", "selected_company":"", "selected_bvn":None}.items():
     if key not in st.session_state:
         st.session_state[key] = val
+
+# --- 2B. URL → SESSION ROUTER ---
+qp_view = st.query_params.get("view")
+qp_bvn = st.query_params.get("bvn")
+
+# Streamlit may return lists
+if isinstance(qp_view, list):
+    qp_view = qp_view[0] if qp_view else None
+if isinstance(qp_bvn, list):
+    qp_bvn = qp_bvn[0] if qp_bvn else None
+
+if qp_view == "individual_economic_activity" and qp_bvn:
+    st.session_state.selected_bvn = str(qp_bvn).strip()
+    st.session_state.nav = "Individuals_Economic_Activity"
+
 
 # --- 3. REUSABLE COMPONENTS ---
 def metric_card(label, value, delta, route=None, danger=False):
@@ -582,7 +716,7 @@ def render_individuals_view():
     st.caption(f"Page **{page}** of **{total_pages}** — showing rows **{start+1:,}–{end:,}**")
 
     # ✅ Link column -> deep dive
-    page_df.insert(0, "View", page_df["bvn"].apply(lambda x: f"/?view=individual_details&bvn={x}"))
+    page_df.insert(0, "View", page_df["bvn"].apply(lambda x: f"/?view=individual_economic_activity&bvn={x}"))
 
     show = page_df[["View", "bvn", "state_of_residence", "local_government_area", "risk_score", "status"]].rename(
         columns={
@@ -621,9 +755,15 @@ def render_individual_econ_activity_view():
         return
 
     # Back button
-    if st.button("← Back to Individuals"):
+    if st.button("← Back"):
+        st.query_params.clear()
+        st.session_state.selected_bvn = None
         st.session_state.nav = "Individuals"
         st.rerun()
+
+    # if st.button("← Back to Individuals"):
+    #     st.session_state.nav = "Individuals"
+    #     st.rerun()
 
     # Pull records
     p_df = people[people["bvn"] == str(bvn)]
@@ -681,6 +821,7 @@ def render_individual_econ_activity_view():
 
         if not m.empty:
             person_months = m["year_month"].astype(str).tolist()
+            st.write("People columns:", list(people.columns))
 
             render_benchmark_bars(
                 bvn=bvn,
