@@ -6,7 +6,8 @@ import json
 import os
 from pathlib import Path
 import numpy as np
-
+import random
+from pathlib import Path
 
 
 ## --- Load real data ---
@@ -103,12 +104,15 @@ st.markdown(f"""
 #--- 1b. Helpers ---
 DATA_DIR = Path("nrs_streamlit_app/data")
 
+
 def require_file(filename: str) -> Path:
-    path = DATA_DIR / filename
-    if not path.exists():
-        st.error(f"Missing file: {path}. Put **{filename}** inside your **data/** folder.")
+    p = Path(filename).expanduser()
+    if not p.is_absolute():
+        p = (DATA_DIR / filename).resolve()
+    if not p.exists():
+        st.error(f"Missing file: {p}")
         st.stop()
-    return path
+    return p
 
 def title_case_label(s: str) -> str:
     return str(s).replace("_", " ").strip().title()
@@ -330,7 +334,6 @@ def load_people():
 @st.cache_data
 def load_demographics():
     return pd.read_csv(require_file("people_demographics_dataset.csv"), dtype={"bvn": str})
-
 @st.cache_data
 def load_risk_flags():
     df = pd.read_csv(require_file("risk_flags_dataset.csv"), dtype={"bvn": str})
@@ -383,11 +386,9 @@ def load_employment():
 @st.cache_data
 def load_employers():
     return pd.read_csv(require_file("employers_dataset.csv"), dtype={"employer_id": str})
-
-
 people_master = load_people()
 people = people_master
-st.write("DEBUG: people loaded?", "people" in globals(), "rows:", len(people))
+# st.write("DEBUG: people loaded?", "people" in globals(), "rows:", len(people))
 
 demo = load_demographics()
 risk = load_risk_flags()
@@ -397,6 +398,112 @@ monthly = load_monthly()
 employment = load_employment()
 employers = load_employers()
 
+
+
+# -----------------------
+# Synthetic spend (quietly used for richness)
+# -----------------------
+ENRICH_CATEGORIES = [
+    "Food & Groceries", "Eating Out / Restaurants", "Airtime", "Internet / Data",
+    "Transportation", "Fueling", "Electricity", "Cable TV", "Healthcare",
+    "Shopping / E-commerce", "Entertainment", "Betting & Gaming",
+    "Outgoing Transfer", "POS Withdrawal", "Bank Fees & Charges",
+]
+
+AMOUNT_RANGES = {
+    "Food & Groceries": (800, 15000),
+    "Eating Out / Restaurants": (1500, 20000),
+    "Airtime": (200, 3000),
+    "Internet / Data": (500, 10000),
+    "Transportation": (300, 12000),
+    "Fueling": (2000, 40000),
+    "Electricity": (1000, 25000),
+    "Cable TV": (1500, 18000),
+    "Healthcare": (800, 30000),
+    "Shopping / E-commerce": (1500, 60000),
+    "Entertainment": (500, 20000),
+    "Betting & Gaming": (200, 25000),
+    "Outgoing Transfer": (2000, 120000),
+    "POS Withdrawal": (1000, 60000),
+    "Bank Fees & Charges": (50, 2500),
+}
+
+MERCHANTS = {
+    "Airtime": ["MTN VTU", "Airtel VTU", "Glo VTU", "9mobile VTU"],
+    "Internet / Data": ["MTN Data", "Airtel Data", "Glo Data", "9mobile Data", "Smile", "Spectranet", "Starlink"],
+    "Food & Groceries": ["Shoprite", "SPAR", "Local Market", "Justrite", "Everyday Supermarket"],
+    "Eating Out / Restaurants": ["KFC", "Chicken Republic", "Dominos", "Mr Biggs", "Local Bukka", "Cafe Neo"],
+    "Transportation": ["Uber", "Bolt", "Bus Fare", "Okada Fare", "Toll Gate"],
+    "Fueling": ["NNPC Station", "TotalEnergies", "Oando", "Mobil"],
+    "Electricity": ["IKEDC", "EKEDC", "JEDC", "AEDC"],
+    "Cable TV": ["DSTV", "GOtv", "StarTimes"],
+    "Healthcare": ["Pharmacy", "Clinic", "Hospital"],
+    "Shopping / E-commerce": ["Jumia", "Konga", "Mall Purchase", "Online Store"],
+    "Entertainment": ["Cinema", "Game Center", "Concert Tickets"],
+    "Betting & Gaming": ["Bet9ja", "SportyBet", "1xBet", "BetKing"],
+    "Outgoing Transfer": ["Transfer to Family", "Transfer to Vendor", "Transfer to Savings"],
+    "POS Withdrawal": ["POS Cash Agent", "POS Withdrawal"],
+    "Bank Fees & Charges": ["SMS Alert", "Maintenance Fee", "Stamp Duty", "Transfer Charge"],
+}
+CHANNELS = ["POS", "USSD", "Mobile App", "Bank Transfer", "ATM", "Card", "Web"]
+
+def _log_uniform(lo, hi):
+    lo = max(1.0, float(lo))
+    hi = max(lo + 1.0, float(hi))
+    return float(np.exp(np.random.uniform(np.log(lo), np.log(hi))))
+
+def _random_dt_between(start_ts: pd.Timestamp, end_ts: pd.Timestamp) -> pd.Timestamp:
+    delta = (end_ts - start_ts).total_seconds()
+    if delta <= 0:
+        return start_ts
+    r = np.random.randint(0, int(delta))
+    return start_ts + pd.Timedelta(seconds=int(r))
+
+def generate_synthetic_spend_for_bvn(bvn: str, start_month: str, end_month: str, account_id: str | None):
+    # stable seed per bvn+period so it doesn't jump around
+    seed = abs(hash((bvn, start_month, end_month))) % (2**32 - 1)
+    np.random.seed(seed)
+    random.seed(seed)
+
+    months = pd.period_range(start=start_month, end=end_month, freq="M")
+    if len(months) == 0:
+        return pd.DataFrame()
+
+    cats = ENRICH_CATEGORIES.copy()
+    random.shuffle(cats)
+    cats = cats[:10]
+
+    rows = []
+    for per in months:
+        month_start = per.to_timestamp()
+        month_end = (per + 1).to_timestamp()
+
+        weights = np.random.dirichlet([0.9] * len(cats))
+        n = int(np.clip(28 + np.random.randint(-7, 8), 18, 45))
+        chosen = np.random.choice(cats, size=n, p=weights, replace=True)
+
+        for i, cat in enumerate(chosen, start=1):
+            lo, hi = AMOUNT_RANGES.get(cat, (200, 20000))
+            amt = _log_uniform(lo, hi)
+            merchant = random.choice(MERCHANTS.get(cat, [cat]))
+            channel = random.choice(CHANNELS)
+            dt = _random_dt_between(month_start, month_end)
+
+            rows.append({
+                "transaction_id": f"SYN_UI_{bvn}_{str(per)}_{i:03d}",
+                "bvn": bvn,
+                "account_id": str(account_id) if account_id else f"ACC_{bvn}",
+                "txn_datetime": dt,
+                "direction": "outflow",
+                "amount": round(amt, 2),
+                "category_use": cat,
+                "merchant_name": merchant,
+                "narration": f"{cat} - {merchant}",
+                "channel": channel,
+                "_synthetic": True,  # internal only
+            })
+
+    return pd.DataFrame(rows)
 
 # --- 2. STATE MANAGEMENT ---
 for key, val in {"nav": "Dashboard", "selected_state": None, "time_filter": "all", "selected_company":"", "selected_bvn":None}.items():
@@ -647,7 +754,7 @@ def render_individual_econ_activity_view():
         return
 
     # Back button
-    if st.button("← Back to Individuals"):
+    if st.button("← Back"):
         st.query_params.clear()
         st.session_state.selected_bvn = None
         st.session_state.nav = "Individuals"
