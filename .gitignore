@@ -8,3 +8,8 @@ nrs_streamlit_app/generate_data/output/
 
 .idea/nrs-semi-venv/
 nrs-semi-venv/
+
+analysis/data_v2/
+*.csv
+*.parquet
+*.zip
