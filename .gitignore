@@ -13,3 +13,10 @@ analysis/data_v2/
 *.csv
 *.parquet
 *.zip
+
+Analytics-App-Demo/data/
+*.csv
+
+.idea/
+__pycache__/
+*.pyc
