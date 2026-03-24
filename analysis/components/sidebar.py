@@ -9,7 +9,8 @@ def side_bar():
         for option in nav_options:
             if st.button(option,
                          use_container_width=True,
-                         type="primary" if st.session_state.nav == option else "secondary"):
+                         #type="primary" if st.session_state.nav == option else "secondary"
+                         ):
                 st.session_state.nav = option
                 st.rerun()
         st.markdown("<br><br><br>", unsafe_allow_html=True)
