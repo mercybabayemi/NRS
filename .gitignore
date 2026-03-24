@@ -16,3 +16,7 @@ analysis/data_v2/
 
 Analytics-App-Demo/data/
 *.csv
+
+.idea/
+__pycache__/
+*.pyc
